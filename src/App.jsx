@@ -1,8 +1,11 @@
 // src/App.jsx
 
 import { Routes, Route } from "react-router-dom";
+// Corrected Imports: AuthProvider and useAuth come from different files.
 import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./hooks/useAuth";
 
+import Header from "./components/layout/Header/Header";
 import AnimatedLayout from "./components/layout/AnimatedLayout";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -10,66 +13,43 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import WatchlistDetailPage from "./pages/WatchlistDetailPage/WatchlistDetailPage";
-import DashboardLayout from "./components/layout/DashboardLayout"; // Import the layout
 
-function App() {
+// This inner component allows us to use the useAuth hook
+const AppContent = () => {
+  const { isAuthenticated } = useAuth();
+
   return (
-    <AuthProvider>
+    <>
+      {/* This line correctly shows the Header only when the user is authenticated */}
+      {isAuthenticated && <Header />}
+      
       <main className="main-container">
         <Routes>
-          {/* --- Public routes WITHOUT the header --- */}
-          <Route
-            path="/"
-            element={
-              <AnimatedLayout>
-                <HomePage />
-              </AnimatedLayout>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <AnimatedLayout>
-                <LoginPage />
-              </AnimatedLayout>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <AnimatedLayout>
-                <RegisterPage />
-              </AnimatedLayout>
-            }
-          />
+          {/* --- Public Routes --- */}
+          <Route path="/" element={<AnimatedLayout><HomePage /></AnimatedLayout>} />
+          <Route path="/login" element={<AnimatedLayout><LoginPage /></AnimatedLayout>} />
+          <Route path="/register" element={<AnimatedLayout><RegisterPage /></AnimatedLayout>} />
 
-          {/* --- Protected Routes WITH the header via DashboardLayout --- */}
+          {/* --- Protected Routes --- */}
           <Route
             path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <AnimatedLayout>
-                    <DashboardPage />
-                  </AnimatedLayout>
-                </DashboardLayout>
-              </ProtectedRoute>
-            }
+            element={<ProtectedRoute><AnimatedLayout><DashboardPage /></AnimatedLayout></ProtectedRoute>}
           />
           <Route
             path="/watchlist/:id"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <AnimatedLayout>
-                    <WatchlistDetailPage />
-                  </AnimatedLayout>
-                </DashboardLayout>
-              </ProtectedRoute>
-            }
+            element={<ProtectedRoute><AnimatedLayout><WatchlistDetailPage /></AnimatedLayout></ProtectedRoute>}
           />
         </Routes>
       </main>
+    </>
+  );
+};
+
+// The main App component wraps everything in the AuthProvider
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
     </AuthProvider>
   );
 }

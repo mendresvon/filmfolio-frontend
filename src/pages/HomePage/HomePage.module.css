@@ -20,6 +20,7 @@
   font-family: var(--font-family-sans);
   color: var(--text-headings);
   margin-bottom: 2rem;
+  margin-top: -0.75rem;
   height: 24px;
   font-weight: 300;
   letter-spacing: 0.05em;

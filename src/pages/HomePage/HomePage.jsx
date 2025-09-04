@@ -1,3 +1,4 @@
+// src/pages/HomePage/HomePage.jsx
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -41,11 +42,7 @@ const HomePage = () => {
 
       <motion.div className={styles.author} variants={itemVariants}>
         <TypeAnimation
-          sequence={[
-            1200, // Wait 1.2s after page load before typing
-            "By Von Mendres",
-            5000,
-          ]}
+          sequence={[1200, "By Von Mendres", 5000]}
           wrapper="span"
           speed={50}
           cursor={true}
@@ -54,11 +51,11 @@ const HomePage = () => {
       </motion.div>
 
       <motion.p className={styles.subtitle} variants={itemVariants}>
-        {/* --- START: BOLDED TEXT --- */}
         <strong>Never forget a movie again.</strong>
-        {/* --- END: BOLDED TEXT --- */}
         <br />
-        Easily keep a list of films you've seen and want to see next.
+        <span className={styles.subtitleSecondary}>
+          Easily keep track of movies you want to see, and what you've already seen.
+        </span>
       </motion.p>
 
       <motion.div variants={itemVariants}>
@@ -66,6 +63,13 @@ const HomePage = () => {
           <Button>
             Get Started <FiArrowRight style={{ marginLeft: "8px" }} />
           </Button>
+        </Link>
+      </motion.div>
+
+      <motion.div className={styles.secondaryAction} variants={itemVariants}>
+        Already have an account?{" "}
+        <Link to="/login" className={styles.loginLink}>
+          Log In
         </Link>
       </motion.div>
     </motion.div>

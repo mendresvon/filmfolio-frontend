@@ -43,7 +43,7 @@ const AuthForm = ({ isRegister = false }) => {
       <Card className={styles.authCard}>
         <h1 className={styles.title}>{isRegister ? "Create Account" : "Welcome Back"}</h1>
         <p className={styles.subtitle}>
-          {isRegister ? "Begin tracking your watchlists." : "Log in to access your watchlists."}
+          {isRegister ? "Never forget a movie again." : "Never forget a movie again."}
         </p>
         <form onSubmit={handleSubmit}>
           <Input

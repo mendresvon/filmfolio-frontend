@@ -35,7 +35,7 @@ const HomePage = () => {
       initial="hidden"
       animate="visible">
       <motion.h1 className={styles.title} variants={itemVariants}>
-        Curate Your Cinema.
+        Film Folio
       </motion.h1>
       <motion.p className={styles.subtitle} variants={itemVariants}>
         Create, manage, and share personalized movie watchlists. <br />

@@ -8,9 +8,10 @@
 }
 
 .title {
+  font-family: var(--font-family-serif); /* CHANGED */
   font-size: 5rem;
-  font-weight: 300;
-  letter-spacing: -0.05em;
+  font-weight: 700; /* CHANGED */
+  letter-spacing: -0.02em; /* Adjusted for serif */
   color: var(--text-headings);
   margin-bottom: 1rem;
 }

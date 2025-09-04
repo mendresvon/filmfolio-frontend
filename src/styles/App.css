@@ -1,34 +1,77 @@
 /* Global Styles and CSS Variables */
-
 :root {
   /* Colors */
-  --background-dark: #111111;
+  --background-dark: #0c0a09;
   --text-primary: rgba(255, 255, 255, 0.85);
-  --text-headings: rgba(255, 255, 255, 0.95);
-  --accent-color: #4a4a58; /* A desaturated purple/blue */
-  --accent-glow: rgba(74, 74, 88, 0.6);
+  --text-headings: #ffffff;
+
+  /* Accent Gradient */
+  --accent-gradient: linear-gradient(90deg, #8a2be2, #4169e1);
+  --accent-purple: #8a2be2;
+  --accent-blue: #4169e1;
+  --accent-glow: rgba(138, 43, 226, 0.4);
 
   /* Glassmorphism */
   --glass-bg: rgba(22, 22, 22, 0.25);
   --glass-border: rgba(255, 255, 255, 0.1);
 
-  /* Neumorphism */
-  --neumorphic-bg: #111111;
-  --neumorphic-shadow-light: rgba(60, 60, 60, 0.5);
-  --neumorphic-shadow-dark: rgba(0, 0, 0, 0.6);
-
   /* Typography */
-  --font-family-main: "Inter", sans-serif;
+  --font-family-sans: "Inter", sans-serif;
+  --font-family-serif: "Playfair Display", serif;
 }
 
 body {
-  font-family: var(--font-family-main);
+  font-family: var(--font-family-sans);
   background-color: var(--background-dark);
   color: var(--text-primary);
-  font-weight: 300;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  position: relative; /* Needed for the aura effect */
+  min-height: 100vh; /* Ensures body covers the full height */
+}
+
+/* Aurora Background Effect */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  filter: blur(150px);
+  opacity: 0.5;
+  /* Ensure a fixed position so it doesn't scroll with content */
+  position: fixed;
+}
+
+body::before {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation: float 15s infinite linear;
+}
+
+body::after {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--accent-blue), transparent 70%);
+  bottom: -20%;
+  right: -15%;
+  animation: float 20s infinite linear reverse;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-40px) translateX(20px);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
 }
 
 .main-container {

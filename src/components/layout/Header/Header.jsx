@@ -4,7 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../../../hooks/useAuth";
 import styles from "./Header.module.css";
-import { FiFilm, FiLogOut, FiLogIn } from "react-icons/fi";
+// --- CHANGE: Unnecessary icon import removed ---
+import { FiLogOut, FiLogIn } from "react-icons/fi";
 
 const Header = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -22,8 +23,8 @@ const Header = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}>
       <div className={styles.headerContent}>
-        <NavLink to="/" className={styles.logo}>
-          <FiFilm />
+        <NavLink to="/dashboard" className={styles.logo}>
+          {/* --- CHANGE: Icon element removed from here --- */}
           <span>FilmFolio</span>
         </NavLink>
         <nav className={styles.nav}>

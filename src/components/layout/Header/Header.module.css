@@ -1,6 +1,7 @@
 /* src/components/layout/Header/Header.module.css */
 .header {
-  padding: 1rem 2rem;
+  /* --- CHANGE: Vertical padding set to 0 --- */
+  padding: 0 2rem;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -19,14 +20,22 @@
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--text-headings);
+  font-family: var(--font-family-netflix);
+  font-size: 2.5rem; 
+  font-weight: 700;
+  color: var(--netflix-red);
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s;
+  /* Add a small margin for breathing room if needed, but padding is gone */
+  margin: 0.2rem 0;
+}
+
+.logo:hover {
+    transform: scale(1.03);
 }
 
 .nav {
@@ -95,7 +104,6 @@
   box-shadow: 0 0 15px var(--accent-glow);
 }
 
-/* --- START: MOBILE FRIENDLY STYLES --- */
 @media (max-width: 768px) {
   .header {
     padding: 1rem;
@@ -106,4 +114,3 @@
     gap: 1rem;
   }
 }
-/* --- END: MOBILE FRIENDLY STYLES --- */

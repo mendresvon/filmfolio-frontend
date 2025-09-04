@@ -1,7 +1,9 @@
 // src/App.jsx
 
-import { Routes, Route } from "react-router-dom";
-// Corrected Imports: AuthProvider and useAuth come from different files.
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from "react-router-dom";
+
+// --- THE FIX: Corrected import paths for AuthProvider and useAuth ---
 import { AuthProvider } from "./context/AuthContext";
 import { useAuth } from "./hooks/useAuth";
 
@@ -14,13 +16,25 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import WatchlistDetailPage from "./pages/WatchlistDetailPage/WatchlistDetailPage";
 
-// This inner component allows us to use the useAuth hook
 const AppContent = () => {
   const { isAuthenticated } = useAuth();
+  const location = useLocation();
+
+  // This effect will run whenever the user navigates to a new page
+  useEffect(() => {
+    const protectedPaths = ['/dashboard', '/watchlist'];
+    const isProtected = protectedPaths.some(path => location.pathname.startsWith(path));
+
+    // Add or remove the dashboard-bg class from the body tag
+    if (isAuthenticated && isProtected) {
+      document.body.classList.add('dashboard-bg');
+    } else {
+      document.body.classList.remove('dashboard-bg');
+    }
+  }, [location, isAuthenticated]); // Re-run the effect when location or auth state changes
 
   return (
     <>
-      {/* This line correctly shows the Header only when the user is authenticated */}
       {isAuthenticated && <Header />}
       
       <main className="main-container">

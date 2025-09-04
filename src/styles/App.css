@@ -1,18 +1,15 @@
 /* src/styles/App.css */
 
-/* Global Styles and CSS Variables */
 :root {
   /* Colors */
   --background-dark: #0c0a09;
   --text-primary: rgba(255, 255, 255, 0.85);
   --text-headings: #ffffff;
   --netflix-red: #e50914;
-
-  /* Accent Colors & Gradient */
-  --accent-glow: rgba(229, 9, 20, 0.4); /* Netflix red glow */
+  --accent-glow: rgba(229, 9, 20, 0.4);
 
   /* Glassmorphism Effect */
-  --glass-bg: rgba(30, 30, 30, 0.75); /* Made the card background more opaque */
+  --glass-bg: rgba(30, 30, 30, 0.75);
   --glass-border: rgba(255, 255, 255, 0.1);
 
   /* Typography */
@@ -31,37 +28,31 @@ body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
-  /* Correctly applies a dark overlay on top of the image */
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
+  /* This is the default background for the landing page */
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url("../assets/netflix-background-image.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
 
-/* This is no longer needed for the overlay */
-body::before {
-  display: none;
+/* --- CHANGE: This rule now uses the 'background' shorthand property --- */
+/* This ensures it completely overrides the default background from the body tag above */
+body.dashboard-bg {
+  background: var(--background-dark)
+    radial-gradient(circle at 50% 0%, rgba(120, 120, 120, 0.15) 0%, rgba(12, 10, 9, 0) 50%);
 }
 
-/* Removed Aurora Container Styles and blobs */
-.aurora-container {
-  display: none;
-}
-
-/* Main Container */
 .main-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   position: relative;
-  z-index: 2; /* Ensures content is above background */
+  z-index: 2;
 }
 
-/* --- START: MOBILE FRIENDLY STYLES --- */
 @media (max-width: 768px) {
   .main-container {
     padding: 1rem;
   }
 }
-/* --- END: MOBILE FRIENDLY STYLES --- */

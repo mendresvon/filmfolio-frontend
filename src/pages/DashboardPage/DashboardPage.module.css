@@ -1,56 +1,17 @@
+/* src/pages/DashboardPage/DashboardPage.module.css */
 .dashboardContainer {
   padding-top: 2rem;
 }
 
+/* --- CHANGE: Styled the main title --- */
 .title {
-  font-size: 3rem;
-  font-weight: 300;
-  letter-spacing: -0.05em;
+  font-family: var(--font-family-netflix);
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   color: var(--text-headings);
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   text-align: center;
-}
-
-.sectionTitle {
-  font-size: 1.8rem;
-  font-weight: 300;
-  letter-spacing: -0.05em;
-  color: var(--text-primary);
-  margin-bottom: 2rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--glass-border);
-}
-
-.loaderContainer {
-  display: flex;
-  justify-content: center;
-  padding: 4rem 0;
-}
-
-.watchlistGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.watchlistCard {
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.watchlistCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.watchlistCard h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--text-headings);
-  margin-bottom: 0.5rem;
-}
-
-.watchlistCard p {
-  color: var(--text-primary);
 }
 
 .header {
@@ -71,16 +32,43 @@
   border: none;
 }
 
-.errorText {
-  text-align: center;
-  color: #ff6b6b;
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
 }
 
-.emptyState {
-  text-align: center;
-  padding: 4rem 0;
+.watchlistGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.watchlistCard {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* --- CHANGE: Added a red glow hover effect --- */
+.watchlistCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 20px var(--accent-glow);
+}
+
+.watchlistCard h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-headings);
+  margin-bottom: 0.5rem;
+}
+
+.watchlistCard p {
   color: var(--text-primary);
-  opacity: 0.7;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .cardWrapper {
@@ -101,14 +89,14 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  opacity: 0; /* Hidden by default */
+  opacity: 0;
   transition: opacity 0.2s, background-color 0.2s;
   backdrop-filter: blur(5px);
   z-index: 5;
 }
 
 .cardWrapper:hover .deleteButton {
-  opacity: 1; /* Show on hover */
+  opacity: 1;
 }
 
 .deleteButton:hover {
@@ -116,8 +104,14 @@
   color: white;
 }
 
-.cardLink {
-  text-decoration: none;
-  color: inherit;
-  display: block;
+.errorText {
+  text-align: center;
+  color: #ff6b6b;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--text-primary);
+  opacity: 0.7;
 }

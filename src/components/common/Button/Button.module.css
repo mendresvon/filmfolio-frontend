@@ -1,11 +1,10 @@
 /* src/components/common/Button/Button.module.css */
 
 .styledButton {
-  /* Renamed for clarity */
   padding: 1rem 2.5rem;
   border-radius: 50px;
   border: none;
-  background: var(--accent-gradient);
+  background: var(--netflix-red); /* Use Netflix red */
   color: var(--text-headings);
   font-weight: 500;
   cursor: pointer;
@@ -19,7 +18,7 @@
 
 .styledButton:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px var(--accent-glow);
+  box-shadow: 0 8px 25px var(--accent-glow); /* Use Netflix red glow */
 }
 
 .styledButton:disabled {

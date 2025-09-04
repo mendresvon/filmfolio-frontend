@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 import styles from "./HomePage.module.css";
 import Button from "../../components/common/Button/Button";
+import Card from "../../components/common/Card/Card";
 import { FiArrowRight } from "react-icons/fi";
 
 const HomePage = () => {
@@ -35,43 +36,52 @@ const HomePage = () => {
       className={styles.homeContainer}
       variants={containerVariants}
       initial="hidden"
-      animate="visible">
-      <motion.h1 className={styles.title} variants={itemVariants}>
-        FilmFolio
-      </motion.h1>
+      animate="visible"
+    >
+      <Card className={styles.homeCard}>
+        <motion.h1 className={styles.title} variants={itemVariants}>
+          FilmFolio
+        </motion.h1>
 
-      <motion.div className={styles.author} variants={itemVariants}>
-        <TypeAnimation
-          sequence={[1200, "By Von Mendres", 5000]}
-          wrapper="span"
-          speed={50}
-          cursor={true}
-          repeat={Infinity}
-        />
-      </motion.div>
+        <motion.div className={styles.author} variants={itemVariants}>
+          <TypeAnimation
+            sequence={[1200, "By Von Mendres", 5000]}
+            wrapper="span"
+            speed={50}
+            cursor={true}
+            repeat={Infinity}
+          />
+        </motion.div>
 
-      <motion.p className={styles.subtitle} variants={itemVariants}>
-        <strong>Never forget a movie again.</strong>
-        <br />
-        <span className={styles.subtitleSecondary}>
-          Easily keep track of movies you want to see, and what you've already seen.
-        </span>
-      </motion.p>
+        <motion.p className={styles.subtitle} variants={itemVariants}>
+          <strong>Never forget a movie again.</strong>
+          <br />
+          <span className={styles.subtitleSecondary}>
+            Easily keep track of movies you want to see, and what you've already
+            seen.
+          </span>
+        </motion.p>
 
-      <motion.div variants={itemVariants}>
-        <Link to="/register">
-          <Button>
-            Get Started <FiArrowRight style={{ marginLeft: "8px" }} />
-          </Button>
-        </Link>
-      </motion.div>
+        <motion.div
+          variants={itemVariants}
+          className={styles.buttonContainer} // Center the button
+        >
+          <Link to="/register" className={styles.buttonLink}>
+            {" "}
+            {/* Remove the underline */}
+            <Button>
+              Get Started <FiArrowRight style={{ marginLeft: "8px" }} />
+            </Button>
+          </Link>
+        </motion.div>
 
-      <motion.div className={styles.secondaryAction} variants={itemVariants}>
-        Already have an account?{" "}
-        <Link to="/login" className={styles.loginLink}>
-          Log In
-        </Link>
-      </motion.div>
+        <motion.div className={styles.secondaryAction} variants={itemVariants}>
+          Already have an account?{" "}
+          <Link to="/login" className={styles.loginLink}>
+            Log In
+          </Link>
+        </motion.div>
+      </Card>
     </motion.div>
   );
 };

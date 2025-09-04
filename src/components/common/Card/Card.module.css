@@ -7,4 +7,11 @@
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  /* --- Adds a smooth transition FOR THE GLOW --- */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* --- Re-added the hover effect for the glow --- */
+.glassCard:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 30px var(--accent-glow);
 }

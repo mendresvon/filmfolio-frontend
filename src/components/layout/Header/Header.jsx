@@ -1,3 +1,4 @@
+// src/components/layout/Header/Header.jsx
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -6,7 +7,7 @@ import styles from "./Header.module.css";
 import { FiFilm, FiLogOut, FiLogIn } from "react-icons/fi";
 
 const Header = () => {
-  const { isAuthenticated, logout, user } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {

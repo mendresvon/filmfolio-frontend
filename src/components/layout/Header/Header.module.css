@@ -1,11 +1,9 @@
 /* src/components/layout/Header/Header.module.css */
-
 .header {
   padding: 1rem 2rem;
   position: sticky;
   top: 0;
   z-index: 10;
-  /* Glassmorphism effect */
   background: rgba(17, 17, 17, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -56,7 +54,7 @@
   height: 1px;
   bottom: -4px;
   left: 0;
-  background: var(--accent-purple); /* Use accent color */
+  background: var(--accent-purple);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
@@ -85,7 +83,7 @@
 }
 
 .registerButton {
-  background: var(--accent-purple); /* Use accent color */
+  background: var(--accent-purple);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   color: white;
@@ -93,6 +91,6 @@
 }
 
 .registerButton:hover {
-  background-color: #6a1eae; /* Darker purple */
+  background-color: #6a1eae;
   box-shadow: 0 0 15px var(--accent-glow);
 }

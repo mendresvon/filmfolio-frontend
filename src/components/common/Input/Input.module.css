@@ -20,14 +20,20 @@
   color: var(--text-primary);
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none; /* Remove default outline */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+/* --- START: ADDED HOVER AND FOCUS STYLES --- */
+.input:hover {
+  border-color: rgba(138, 43, 226, 0.5); /* Subtle purple border on hover */
 }
 
 .input:focus {
-  outline: none;
   border-color: var(--accent-purple);
-  box-shadow: 0 0 0 2px var(--accent-glow);
+  box-shadow: 0 0 0 3px var(--accent-glow); /* Glowing ring on focus */
 }
+/* --- END: ADDED HOVER AND FOCUS STYLES --- */
 
 .input::placeholder {
   color: rgba(255, 255, 255, 0.4);

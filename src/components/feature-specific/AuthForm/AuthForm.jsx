@@ -1,5 +1,6 @@
+// src/components/feature-specific/AuthForm/AuthForm.jsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import Card from "../../common/Card/Card";
 import Input from "../../common/Input/Input";
@@ -25,11 +26,9 @@ const AuthForm = ({ isRegister = false }) => {
     try {
       if (isRegister) {
         await register(formData);
-        // On successful registration, redirect to login
         navigate("/login");
       } else {
         await login(formData);
-        // On successful login, redirect to dashboard
         navigate("/dashboard");
       }
     } catch (err) {
@@ -43,6 +42,9 @@ const AuthForm = ({ isRegister = false }) => {
     <div className={styles.formContainer}>
       <Card className={styles.authCard}>
         <h1 className={styles.title}>{isRegister ? "Create Account" : "Welcome Back"}</h1>
+        <p className={styles.subtitle}>
+          {isRegister ? "Begin tracking your watchlists." : "Log in to access your watchlists."}
+        </p>
         <form onSubmit={handleSubmit}>
           <Input
             label="Email"
@@ -63,10 +65,21 @@ const AuthForm = ({ isRegister = false }) => {
           {error && <p className={styles.error}>{error}</p>}
           <div className={styles.buttonWrapper}>
             <Button type="submit" loading={loading} disabled={loading}>
-              {isRegister ? "Register" : "Login"}
+              {isRegister ? "Create Account" : "Login"}
             </Button>
           </div>
         </form>
+        <div className={styles.switchAuth}>
+          {isRegister ? (
+            <p>
+              Already have an account? <Link to="/login">Sign In</Link>
+            </p>
+          ) : (
+            <p>
+              Don't have an account? <Link to="/register">Sign Up</Link>
+            </p>
+          )}
+        </div>
       </Card>
     </div>
   );

@@ -4,16 +4,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../../../hooks/useAuth";
 import styles from "./Header.module.css";
-// --- CHANGE: Unnecessary icon import removed ---
 import { FiLogOut, FiLogIn } from "react-icons/fi";
 
 const Header = () => {
   const { isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
-
+  
+  // The handleLogout function is now simplified
   const handleLogout = () => {
     logout();
-    navigate("/");
   };
 
   return (
@@ -24,7 +22,6 @@ const Header = () => {
       transition={{ duration: 0.5, ease: "easeOut" }}>
       <div className={styles.headerContent}>
         <NavLink to="/dashboard" className={styles.logo}>
-          {/* --- CHANGE: Icon element removed from here --- */}
           <span>FilmFolio</span>
         </NavLink>
         <nav className={styles.nav}>

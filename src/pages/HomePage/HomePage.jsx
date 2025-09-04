@@ -57,8 +57,7 @@ const HomePage = () => {
           <strong>Never forget a movie again.</strong>
           <br />
           <span className={styles.subtitleSecondary}>
-            Easily keep track of movies you want to see, and what you've already
-            seen.
+            Easily keep track of movies you want to watch.
           </span>
         </motion.p>
 

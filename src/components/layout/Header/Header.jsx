@@ -23,7 +23,7 @@ const Header = () => {
       <div className={styles.headerContent}>
         <NavLink to="/" className={styles.logo}>
           <FiFilm />
-          <span>Filmfolio</span>
+          <span>FilmFolio</span>
         </NavLink>
         <nav className={styles.nav}>
           {isAuthenticated ? (

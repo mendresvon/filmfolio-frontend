@@ -1,0 +1,8 @@
+.glassCard {
+  background: var(--glass-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}

@@ -1,0 +1,54 @@
+.dashboardContainer {
+  padding-top: 2rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  color: var(--text-headings);
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+.watchlistGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.watchlistCard {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.watchlistCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.watchlistCard h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-headings);
+  margin-bottom: 0.5rem;
+}
+
+.watchlistCard p {
+  color: var(--text-primary);
+}

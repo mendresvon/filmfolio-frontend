@@ -1,0 +1,38 @@
+/* Global Styles and CSS Variables */
+
+:root {
+  /* Colors */
+  --background-dark: #111111;
+  --text-primary: rgba(255, 255, 255, 0.85);
+  --text-headings: rgba(255, 255, 255, 0.95);
+  --accent-color: #4a4a58; /* A desaturated purple/blue */
+  --accent-glow: rgba(74, 74, 88, 0.6);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(22, 22, 22, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Neumorphism */
+  --neumorphic-bg: #111111;
+  --neumorphic-shadow-light: rgba(60, 60, 60, 0.5);
+  --neumorphic-shadow-dark: rgba(0, 0, 0, 0.6);
+
+  /* Typography */
+  --font-family-main: "Inter", sans-serif;
+}
+
+body {
+  font-family: var(--font-family-main);
+  background-color: var(--background-dark);
+  color: var(--text-primary);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}

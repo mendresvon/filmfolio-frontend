@@ -4,16 +4,25 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+  min-height: calc(100vh - 200px);
 }
 
 .title {
-  font-family: var(--font-family-serif); /* CHANGED */
-  font-size: 5rem;
-  font-weight: 700; /* CHANGED */
-  letter-spacing: -0.02em; /* Adjusted for serif */
+  font-family: var(--font-family-serif);
+  font-size: 6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--text-headings);
-  margin-bottom: 1rem;
+}
+
+.author {
+  font-size: 1rem;
+  font-family: var(--font-family-sans);
+  color: var(--text-headings);
+  margin-bottom: 2rem;
+  height: 24px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
 }
 
 .subtitle {
@@ -21,4 +30,10 @@
   max-width: 600px;
   margin-bottom: 2.5rem;
   line-height: 1.6;
+}
+
+/* --- ADDED: Style for the bolded text --- */
+.subtitle strong {
+  font-weight: 500;
+  color: var(--text-headings);
 }

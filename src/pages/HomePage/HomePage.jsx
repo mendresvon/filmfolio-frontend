@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { TypeAnimation } from "react-type-animation";
 import styles from "./HomePage.module.css";
 import Button from "../../components/common/Button/Button";
 import { FiArrowRight } from "react-icons/fi";
@@ -37,10 +38,29 @@ const HomePage = () => {
       <motion.h1 className={styles.title} variants={itemVariants}>
         FilmFolio
       </motion.h1>
+
+      <motion.div className={styles.author} variants={itemVariants}>
+        <TypeAnimation
+          sequence={[
+            1200, // Wait 1.2s after page load before typing
+            "By Von Mendres",
+            5000,
+          ]}
+          wrapper="span"
+          speed={50}
+          cursor={true}
+          repeat={Infinity}
+        />
+      </motion.div>
+
       <motion.p className={styles.subtitle} variants={itemVariants}>
-        <strong>Never forget a movie again.</strong> <br />
+        {/* --- START: BOLDED TEXT --- */}
+        <strong>Never forget a movie again.</strong>
+        {/* --- END: BOLDED TEXT --- */}
+        <br />
         Easily keep a list of films you've seen and want to see next.
       </motion.p>
+
       <motion.div variants={itemVariants}>
         <Link to="/register">
           <Button>

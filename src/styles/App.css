@@ -32,7 +32,7 @@ body {
   position: relative;
   min-height: 100vh;
   /* Correctly applies a dark overlay on top of the image */
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
     url("../assets/netflix-background-image.jpg");
   background-size: cover;
   background-position: center;

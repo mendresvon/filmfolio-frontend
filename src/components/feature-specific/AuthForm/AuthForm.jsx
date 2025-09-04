@@ -53,6 +53,8 @@ const AuthForm = ({ isRegister = false }) => {
             value={formData.email}
             onChange={handleChange}
             placeholder="you@example.com"
+            // --- CHANGE: Added autoComplete attribute ---
+            autoComplete={isRegister ? "email" : "username"}
           />
           <Input
             label="Password"
@@ -61,6 +63,8 @@ const AuthForm = ({ isRegister = false }) => {
             value={formData.password}
             onChange={handleChange}
             placeholder="••••••••"
+            // --- CHANGE: Added autoComplete attribute ---
+            autoComplete={isRegister ? "new-password" : "current-password"}
           />
           {error && <p className={styles.error}>{error}</p>}
           <div className={styles.buttonWrapper}>

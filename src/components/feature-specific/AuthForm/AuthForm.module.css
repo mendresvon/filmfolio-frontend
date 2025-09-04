@@ -9,17 +9,15 @@
 .authCard {
   width: 100%;
   max-width: 450px;
-  /* The transition and hover styles have been removed from here */
 }
 
 .title {
   text-align: center;
-  margin-bottom: 1rem;
-  font-family: var(--font-family-serif);
-  font-weight: 700;
+  font-family: var(--font-family-netflix);
+  font-weight: 500;
   font-size: 2.5rem;
-  letter-spacing: -0.05em;
-  color: var(--text-headings);
+  letter-spacing: 0.025em;
+  color: var(--netflix-red);
 }
 
 .subtitle {
@@ -47,8 +45,9 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
+/* --- START: CHANGED LINK COLOR --- */
 .switchAuth a {
-  color: var(--accent-purple);
+  color: var(--netflix-red);
   font-weight: 500;
   text-decoration: none;
   transition: color 0.2s;
@@ -56,5 +55,6 @@
 
 .switchAuth a:hover {
   text-decoration: underline;
-  color: #a855f7;
+  color: #ff3333; /* Slightly brighter red on hover */
 }
+/* --- END: CHANGED LINK COLOR --- */

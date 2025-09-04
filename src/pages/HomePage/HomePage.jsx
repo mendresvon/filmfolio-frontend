@@ -6,7 +6,7 @@ import { TypeAnimation } from "react-type-animation";
 import styles from "./HomePage.module.css";
 import Button from "../../components/common/Button/Button";
 import Card from "../../components/common/Card/Card";
-import { FiArrowRight } from "react-icons/fi";
+import { FiLogIn } from "react-icons/fi"; // Changed icon
 
 const HomePage = () => {
   const containerVariants = {
@@ -63,21 +63,21 @@ const HomePage = () => {
 
         <motion.div
           variants={itemVariants}
-          className={styles.buttonContainer} // Center the button
+          className={styles.buttonContainer}
         >
-          <Link to="/register" className={styles.buttonLink}>
-            {" "}
-            {/* Remove the underline */}
+          {/* --- CHANGE: Button now links to /login --- */}
+          <Link to="/login" className={styles.buttonLink}>
             <Button>
-              Get Started <FiArrowRight style={{ marginLeft: "8px" }} />
+              Login <FiLogIn style={{ marginLeft: "8px" }} />
             </Button>
           </Link>
         </motion.div>
 
         <motion.div className={styles.secondaryAction} variants={itemVariants}>
-          Already have an account?{" "}
-          <Link to="/login" className={styles.loginLink}>
-            Log In
+           {/* --- CHANGE: Secondary action links to /register --- */}
+          Don't have an account?{" "}
+          <Link to="/register" className={styles.loginLink}>
+            Sign Up
           </Link>
         </motion.div>
       </Card>

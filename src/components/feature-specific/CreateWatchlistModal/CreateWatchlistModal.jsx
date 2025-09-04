@@ -37,12 +37,13 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
       <h2 className={styles.title}>Create New Watchlist</h2>
       <form onSubmit={handleSubmit}>
         <Input
+          autofocus
           label="Watchlist Name"
           type="text"
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="e.g., Must-See Sci-Fi"
+          placeholder="e.g., Must-See Romance"
         />
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.buttonWrapper}>

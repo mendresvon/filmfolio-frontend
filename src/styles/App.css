@@ -29,18 +29,20 @@ body {
   position: relative;
   min-height: 100vh;
   /* This is the default background for the landing page */
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
     url("../assets/netflix-background-image.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
 
-/* --- CHANGE: This rule now uses the 'background' shorthand property --- */
-/* This ensures it completely overrides the default background from the body tag above */
+/* --- CHANGE: This rule now uses your new cinema-seats.jpg image --- */
 body.dashboard-bg {
-  background: var(--background-dark)
-    radial-gradient(circle at 50% 0%, rgba(120, 120, 120, 0.15) 0%, rgba(12, 10, 9, 0) 50%);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+      url("../assets/cinema-seats.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .main-container {

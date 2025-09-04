@@ -1,3 +1,5 @@
+// src/App.jsx
+
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -12,6 +14,15 @@ import ProtectedRoute from "./components/layout/ProtectedRoute";
 function App() {
   return (
     <AuthProvider>
+      {/* --- ADD THIS SECTION FOR THE NEW BACKGROUND --- */}
+      <div className="aurora-container">
+        <div className="aurora-blob"></div>
+        <div className="aurora-blob"></div>
+        <div className="aurora-blob"></div>
+        <div className="aurora-blob"></div>
+      </div>
+      {/* --- END OF NEW SECTION --- */}
+
       <Header />
       <main className="main-container">
         <Routes>

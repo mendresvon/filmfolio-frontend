@@ -1,3 +1,4 @@
+// src/components/common/Button/Button.jsx
 import React from "react";
 import { motion } from "framer-motion";
 import styles from "./Button.module.css";
@@ -13,7 +14,7 @@ const Button = ({
 }) => {
   return (
     <motion.button
-      className={styles.neumorphicButton}
+      className={styles.styledButton} // Use the new class name
       onClick={onClick}
       type={type}
       disabled={disabled || loading}

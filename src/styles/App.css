@@ -1,3 +1,5 @@
+/* src/styles/App.css */
+
 /* Global Styles and CSS Variables */
 :root {
   /* Colors */
@@ -5,13 +7,13 @@
   --text-primary: rgba(255, 255, 255, 0.85);
   --text-headings: #ffffff;
 
-  /* Accent Gradient */
-  --accent-gradient: linear-gradient(90deg, #8a2be2, #4169e1);
+  /* Accent Colors & Gradient */
   --accent-purple: #8a2be2;
   --accent-blue: #4169e1;
+  --accent-pink: #c71585;
   --accent-glow: rgba(138, 43, 226, 0.4);
 
-  /* Glassmorphism */
+  /* Glassmorphism Effect */
   --glass-bg: rgba(22, 22, 22, 0.25);
   --glass-border: rgba(255, 255, 255, 0.1);
 
@@ -28,54 +30,109 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  position: relative; /* Needed for the aura effect */
-  min-height: 100vh; /* Ensures body covers the full height */
+  position: relative;
+  min-height: 100vh;
 }
 
-/* Aurora Background Effect */
-body::before,
-body::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  filter: blur(150px);
-  opacity: 0.5;
-  /* Ensure a fixed position so it doesn't scroll with content */
+/* Aurora Container Styles */
+.aurora-container {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-body::before {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, var(--accent-purple), transparent 70%);
-  top: -10%;
-  left: -10%;
-  animation: float 15s infinite linear;
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.7;
+  will-change: transform;
 }
 
-body::after {
+/* Individual blob styles and animations with 'alternate' for smooth looping */
+.aurora-blob:nth-child(1) {
   width: 500px;
   height: 500px;
+  background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+  top: -20%;
+  left: -20%;
+  animation: float1 25s infinite linear alternate;
+}
+
+.aurora-blob:nth-child(2) {
+  width: 600px;
+  height: 600px;
   background: radial-gradient(circle, var(--accent-blue), transparent 70%);
-  bottom: -20%;
-  right: -15%;
-  animation: float 20s infinite linear reverse;
+  bottom: -30%;
+  right: -25%;
+  animation: float2 20s infinite linear alternate;
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0px) translateX(0px);
+.aurora-blob:nth-child(3) {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--accent-pink), transparent 70%);
+  bottom: 20%;
+  left: 10%;
+  animation: float3 30s infinite linear alternate;
+}
+
+.aurora-blob:nth-child(4) {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, var(--accent-blue), transparent 70%);
+  top: 15%;
+  right: 15%;
+  animation: float4 28s infinite linear alternate;
+}
+
+/* Keyframe Animations */
+@keyframes float1 {
+  from {
+    transform: translate(-20%, -20%) rotate(0deg);
   }
-  50% {
-    transform: translateY(-40px) translateX(20px);
-  }
-  100% {
-    transform: translateY(0px) translateX(0px);
+  to {
+    transform: translate(20%, 20%) rotate(360deg);
   }
 }
 
+@keyframes float2 {
+  from {
+    transform: translate(30%, 20%) scale(1);
+  }
+  to {
+    transform: translate(-30%, -20%) scale(1.2);
+  }
+}
+
+@keyframes float3 {
+  from {
+    transform: translateY(50px) scale(1.1);
+  }
+  to {
+    transform: translateY(-50px) scale(0.9);
+  }
+}
+
+@keyframes float4 {
+  from {
+    transform: translateX(0px) rotate(0deg);
+  }
+  to {
+    transform: translateX(80px) rotate(180deg);
+  }
+}
+
+/* Main Container */
 .main-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
+  z-index: 1;
 }

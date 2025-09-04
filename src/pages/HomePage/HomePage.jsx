@@ -35,11 +35,11 @@ const HomePage = () => {
       initial="hidden"
       animate="visible">
       <motion.h1 className={styles.title} variants={itemVariants}>
-        Film Folio
+        FilmFolio
       </motion.h1>
       <motion.p className={styles.subtitle} variants={itemVariants}>
-        Create, manage, and share personalized movie watchlists. <br />
-        Your ultimate film journey begins here.
+        <strong>Never forget a movie again.</strong> <br />
+        Easily keep a list of films you've seen and want to see next.
       </motion.p>
       <motion.div variants={itemVariants}>
         <Link to="/register">

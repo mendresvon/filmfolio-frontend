@@ -1,3 +1,5 @@
+/* src/components/common/Card/Card.module.css */
+
 .glassCard {
   background: var(--glass-bg);
   border-radius: 16px;

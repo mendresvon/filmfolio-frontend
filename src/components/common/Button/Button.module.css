@@ -1,30 +1,29 @@
-.neumorphicButton {
+/* src/components/common/Button/Button.module.css */
+
+.styledButton {
+  /* Renamed for clarity */
   padding: 1rem 2.5rem;
   border-radius: 50px;
   border: none;
-  background: var(--neumorphic-bg);
-  color: var(--text-primary);
+  background: var(--accent-gradient);
+  color: var(--text-headings);
   font-weight: 500;
   cursor: pointer;
   font-size: 1rem;
-  box-shadow: -6px -6px 12px var(--neumorphic-shadow-light),
-    6px 6px 12px var(--neumorphic-shadow-dark);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.neumorphicButton:hover:not(:disabled) {
-  box-shadow: -4px -4px 10px var(--neumorphic-shadow-light),
-    4px 4px 10px var(--neumorphic-shadow-dark), inset -2px -2px 5px var(--neumorphic-shadow-light),
-    inset 2px 2px 5px var(--neumorphic-shadow-dark);
-  text-shadow: 0 0 10px var(--accent-glow);
+.styledButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent-glow);
 }
 
-.neumorphicButton:disabled {
+.styledButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  box-shadow: inset -4px -4px 8px var(--neumorphic-shadow-light),
-    inset 4px 4px 8px var(--neumorphic-shadow-dark);
+  background: var(--glass-border);
 }

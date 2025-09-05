@@ -38,6 +38,7 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
       <form onSubmit={handleSubmit}>
         <Input
           autofocus
+          autoComplete="off"
           label="Watchlist Name"
           type="text"
           name="name"

@@ -21,9 +21,38 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
   }, []);
 
   const renderCover = () => {
-    // This function is correct and remains unchanged
     const { movies } = watchlist;
-    if (movies.length === 0) {
+
+    // --- START: UPDATED LOGIC ---
+
+    // Case 1: 4 or more movies (show the 2x2 grid)
+    if (movies.length >= 4) {
+      const coverItems = movies.slice(0, 4);
+      return (
+        <div className={styles.gridCover}>
+          {coverItems.map((item) => (
+            <img
+              key={item.id}
+              src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
+              alt={item.movieTitle}
+              className={styles.coverImage}
+            />
+          ))}
+        </div>
+      );
+    }
+    // Case 2: 1, 2, or 3 movies (show the first movie's poster)
+    else if (movies.length > 0) {
+      return (
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movies[0].posterPath}`}
+          alt={watchlist.name}
+          className={styles.singlePoster}
+        />
+      );
+    }
+    // Case 3: No movies (show the placeholder)
+    else {
       return (
         <div className={styles.placeholderCover}>
           <div className={styles.placeholderIcon}>
@@ -34,36 +63,8 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
           </div>
         </div>
       );
-    } else if (movies.length > 1) {
-      const coverItems = movies.slice(0, 4);
-      while (coverItems.length < 4) {
-        coverItems.push(null);
-      }
-      return (
-        <div className={styles.gridCover}>
-          {coverItems.map((item, i) =>
-            item ? (
-              <img
-                key={item.id}
-                src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
-                alt={item.movieTitle}
-                className={styles.coverImage}
-              />
-            ) : (
-              <div key={`placeholder-${i}`} className={styles.gridPlaceholderSlot} />
-            )
-          )}
-        </div>
-      );
-    } else {
-      return (
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movies[0].posterPath}`}
-          alt={watchlist.name}
-          className={styles.singlePoster}
-        />
-      );
     }
+    // --- END: UPDATED LOGIC ---
   };
 
   const handleMenuToggle = (e) => {
@@ -73,14 +74,12 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
   };
 
   return (
-    // --- START: CORRECTED STRUCTURE ---
     <motion.div
       className={styles.cardWrapper}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
-      whileHover={{ y: -5, transition: { duration: 0.2 } }} // Animation is now on the main wrapper
-    >
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}>
       <Link to={`/watchlist/${watchlist.id}`} className={styles.cardLink}>
         <div className={styles.card}>
           <div className={styles.textInfo}>
@@ -95,7 +94,6 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
         </div>
       </Link>
 
-      {/* These action buttons are now children of the animated wrapper */}
       <div className={styles.hoverActions}>
         <button
           className={styles.actionButton}
@@ -148,7 +146,6 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
         )}
       </div>
     </motion.div>
-    // --- END: CORRECTED STRUCTURE ---
   );
 };
 

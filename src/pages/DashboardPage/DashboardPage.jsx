@@ -36,7 +36,7 @@ const DashboardPage = () => {
   // before adding it to the state, preventing the render crash.
   const handleWatchlistCreated = (newWatchlist) => {
     const watchlistWithMovies = { ...newWatchlist, movies: [] };
-    setWatchlists([watchlistWithMovies, ...watchlists]);
+    setWatchlists([...watchlists, watchlistWithMovies]);
   };
 
   const handleDeleteWatchlist = async (watchlistId) => {
@@ -89,7 +89,12 @@ const DashboardPage = () => {
         {!loading && !error && (
           <div className={styles.watchlistGrid}>
             {watchlists.map((list, index) => (
-              <WatchlistCard key={list.id} watchlist={list} index={index} />
+              <WatchlistCard
+                key={list.id}
+                watchlist={list}
+                index={index}
+                onDelete={handleDeleteWatchlist}
+              />
             ))}
           </div>
         )}

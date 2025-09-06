@@ -62,7 +62,7 @@ const WatchlistDetailPage = () => {
       const newWatchlistMovie = await addMovieToWatchlist(id, movieData);
       setWatchlist((prev) => ({
         ...prev,
-        movies: [newWatchlistMovie, ...prev.movies],
+        movies: [...prev.movies, newWatchlistMovie],
       }));
     } catch (err) {
       alert(err.msg || "Failed to add movie.");

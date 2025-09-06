@@ -107,3 +107,181 @@
   object-fit: cover;
   /* We REMOVED position: absolute from here */
 }
+
+/* --- START: EDIT MODE STYLES --- */
+
+.editButton {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s;
+  backdrop-filter: blur(5px);
+  z-index: 5;
+}
+
+.cardWrapper:hover .editButton {
+  opacity: 1;
+}
+
+.editButton:hover {
+  background: var(--netflix-red);
+  color: white;
+}
+
+.editInput {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  color: var(--text-headings);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.editInput:focus {
+  outline: none;
+  border-color: var(--netflix-red);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.editActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.actionButton {
+  flex: 1;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  transition: background-color 0.2s;
+}
+
+.saveButton {
+  background-color: #22c55e; /* Green */
+}
+.saveButton:hover {
+  background-color: #16a34a;
+}
+
+.cancelButton {
+  background-color: #6b7280; /* Gray */
+}
+.cancelButton:hover {
+  background-color: #4b5563;
+}
+
+/* --- END: EDIT MODE STYLES --- */
+
+/* --- START: EDIT & HOVER ACTION STYLES --- */
+
+.hoverActions {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 5;
+}
+
+.cardWrapper:hover .hoverActions {
+  opacity: 1;
+}
+
+.editInput {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  color: var(--text-headings);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.editInput:focus {
+  outline: none;
+  border-color: var(--netflix-red);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.editActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.actionButton {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: background-color 0.2s, color 0.2s;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.actionButton:hover {
+  color: white;
+}
+
+.hoverActions .actionButton:first-child:hover {
+  background-color: var(--netflix-red);
+}
+
+.hoverActions .actionButton:last-child:hover {
+  background-color: #ef4444; /* Delete Red */
+}
+
+.editActions .actionButton {
+  flex: 1;
+  border-radius: 6px;
+}
+
+.editActions .saveButton {
+  background-color: #22c55e;
+}
+
+.editActions .saveButton:hover {
+  background-color: #16a34a;
+}
+
+.editActions .cancelButton {
+  background-color: #6b7280;
+}
+
+.editActions .cancelButton:hover {
+  background-color: #4b5563;
+}
+
+/* --- END: EDIT & HOVER ACTION STYLES --- */

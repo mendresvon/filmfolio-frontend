@@ -22,6 +22,16 @@ export const createWatchlist = async (watchlistData) => {
   }
 };
 
+// PUT /api/watchlists/:id
+export const updateWatchlist = async (id, watchlistData) => {
+  try {
+    const response = await apiClient.put(`/watchlists/${id}`, watchlistData);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 // DELETE /api/watchlists/:id
 export const deleteWatchlist = async (id) => {
   try {

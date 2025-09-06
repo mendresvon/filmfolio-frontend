@@ -1,32 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FiEdit3, FiCheck, FiX, FiTrash2 } from "react-icons/fi";
+import { updateWatchlist } from "../../../api/watchlistService";
 import styles from "./WatchlistCard.module.css";
 
-const WatchlistCard = ({ watchlist, index }) => {
-  // --- START: DEBUGGING LOG ---
-  console.log(`--- WatchlistCard: "${watchlist.name}" ---`);
-  console.log("Received watchlist object:", watchlist);
-  console.log("Number of movies:", watchlist.movies.length);
-  // --- END: DEBUGGING LOG ---
+const WatchlistCard = ({ watchlist, index, onDelete }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [nameInput, setNameInput] = useState(watchlist.name);
 
   const renderCover = () => {
+    // ... This function is correct and remains unchanged
     const { movies } = watchlist;
-
     if (movies.length === 0) {
-      console.log(`Rendering case 1 (0 movies) for "${watchlist.name}"`);
       return (
         <div className={styles.placeholderCover}>
           <div className={styles.placeholderIcon}>
-            <div />
-            <div />
-            <div />
-            <div />
+            <div /><div /><div /><div />
           </div>
         </div>
       );
     } else if (movies.length > 1) {
-      console.log(`Rendering case 2 (GRID) for "${watchlist.name}"`);
       const coverItems = movies.slice(0, 4);
       while (coverItems.length < 4) {
         coverItems.push(null);
@@ -48,16 +42,60 @@ const WatchlistCard = ({ watchlist, index }) => {
         </div>
       );
     } else {
-      console.log(`Rendering case 3 (SINGLE poster) for "${watchlist.name}"`);
       return (
         <img
           src={`https://image.tmdb.org/t/p/w500${movies[0].posterPath}`}
-          alt={movies[0].movieTitle}
-          className={styles.coverImage}
+          alt={watchlist.name}
+          className={styles.singlePoster}
         />
       );
     }
   };
+
+  const cardContent = (
+    <div className={styles.card}>
+      <div className={styles.textInfo}>
+        {isEditing ? (
+          <>
+            <input
+              type="text"
+              value={nameInput}
+              onChange={(e) => setNameInput(e.target.value)}
+              className={styles.editInput}
+              maxLength="50"
+              autoFocus
+              onClick={(e) => e.preventDefault()} // Prevent link navigation
+            />
+            <div className={styles.editActions}>
+              <button className={`${styles.actionButton} ${styles.saveButton}`}>
+                <FiCheck />
+              </button>
+              <button
+                className={`${styles.actionButton} ${styles.cancelButton}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsEditing(false);
+                  setNameInput(watchlist.name); // Reset input on cancel
+                }}
+              >
+                <FiX />
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <h3>{watchlist.name}</h3>
+            </div>
+            <p className={styles.movieCount}>
+              {watchlist.movies.length} {watchlist.movies.length === 1 ? "movie" : "movies"}
+            </p>
+          </>
+        )}
+      </div>
+      <div className={styles.coverContainer}>{renderCover()}</div>
+    </div>
+  );
 
   return (
     <Link to={`/watchlist/${watchlist.id}`} className={styles.cardLink}>
@@ -66,16 +104,33 @@ const WatchlistCard = ({ watchlist, index }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3, delay: index * 0.1 }}
-        whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-        <div className={styles.card}>
-          <div className={styles.textInfo}>
-            <h3>{watchlist.name}</h3>
-            <p className={styles.movieCount}>
-              {watchlist.movies.length} {watchlist.movies.length === 1 ? "movie" : "movies"}
-            </p>
+        whileHover={{ y: -5, transition: { duration: 0.2 } }}
+      >
+        {cardContent}
+        {!isEditing && (
+          <div className={styles.hoverActions}>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsEditing(true);
+              }}
+              aria-label="Edit watchlist"
+            >
+              <FiEdit3 />
+            </button>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.preventDefault();
+                onDelete(watchlist.id);
+              }}
+              aria-label="Delete watchlist"
+            >
+              <FiTrash2 />
+            </button>
           </div>
-          <div className={styles.coverContainer}>{renderCover()}</div>
-        </div>
+        )}
       </motion.div>
     </Link>
   );

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import styles from "./DashboardPage.module.css";
-import Card from "../../components/common/Card/Card";
 import Loader from "../../components/common/Loader/Loader";
 import Button from "../../components/common/Button/Button";
 import CreateWatchlistModal from "../../components/feature-specific/CreateWatchlistModal/CreateWatchlistModal";
 import { getWatchlists, deleteWatchlist } from "../../api/watchlistService";
-import { FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
+import WatchlistCard from "../../components/feature-specific/WatchlistCard/WatchlistCard";
 
 const DashboardPage = () => {
   const [watchlists, setWatchlists] = useState([]);
@@ -90,29 +89,7 @@ const DashboardPage = () => {
         {!loading && !error && (
           <div className={styles.watchlistGrid}>
             {watchlists.map((list, index) => (
-              <Link to={`/watchlist/${list.id}`} key={list.id} className={styles.cardLink}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className={styles.cardWrapper}>
-                  <Card className={styles.watchlistCard}>
-                    <h3>{list.name}</h3>
-                    <p>
-                      {list.movies.length} {list.movies.length === 1 ? "movie" : "movies"}
-                    </p>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleDeleteWatchlist(list.id);
-                      }}
-                      aria-label={`Delete ${list.name} watchlist`}>
-                      <FiTrash2 />
-                    </button>
-                  </Card>
-                </motion.div>
-              </Link>
+              <WatchlistCard key={list.id} watchlist={list} index={index} />
             ))}
           </div>
         )}

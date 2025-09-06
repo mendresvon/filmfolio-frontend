@@ -44,56 +44,6 @@
   gap: 1.5rem;
 }
 
-.watchlistCard {
-  transition: box-shadow 0.2s ease-in-out;
-}
-
-/* --- CHANGE: Added a red glow hover effect --- */
-.watchlistCard:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 20px var(--accent-glow);
-}
-
-.watchlistCard h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--text-headings);
-  margin-bottom: 0.5rem;
-}
-
-.watchlistCard p {
-  color: var(--text-primary);
-}
-
-.cardLink {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.cardWrapper {
-  position: relative;
-}
-
-.deleteButton {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.2s, background-color 0.2s;
-  backdrop-filter: blur(5px);
-  z-index: 5;
-}
-
 .cardWrapper:hover .deleteButton {
   opacity: 1;
 }

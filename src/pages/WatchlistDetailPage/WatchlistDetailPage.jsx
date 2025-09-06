@@ -9,7 +9,7 @@ import {
 } from "../../api/watchlistService";
 import Loader from "../../components/common/Loader/Loader";
 import Card from "../../components/common/Card/Card";
-import styles from "./WatchlistDetailPage.module.css"; // This line connects the styles
+import styles from "./WatchlistDetailPage.module.css";
 import { FiArrowLeft, FiSearch, FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { useDebounce } from "../../hooks/useDebounce";
 import Input from "../../components/common/Input/Input";
@@ -96,6 +96,9 @@ const WatchlistDetailPage = () => {
           <FiArrowLeft /> Back to Dashboard
         </Link>
         <h1 className={styles.title}>{watchlist.name}</h1>
+
+        {/* --- DESCRIPTION ADDED HERE --- */}
+        {watchlist.description && <p className={styles.description}>{watchlist.description}</p>}
 
         <div className={styles.searchSection}>
           <div className={styles.searchInputWrapper}>

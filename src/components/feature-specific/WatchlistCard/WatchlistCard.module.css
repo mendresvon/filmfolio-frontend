@@ -2,10 +2,12 @@
   text-decoration: none;
   color: inherit;
   display: block;
+  height: 100%;
 }
 
 .cardWrapper {
   position: relative;
+  height: 100%;
 }
 
 .card {
@@ -16,6 +18,7 @@
   border: 1px solid var(--glass-border);
   transition: box-shadow 0.3s ease-in-out;
   position: relative;
+  height: 100%;
 }
 
 /* --- TEXT & LAYOUT STYLES --- */
@@ -109,7 +112,6 @@
   object-fit: cover;
 }
 
-
 /* --- START: HYBRID ACTION STYLES --- */
 
 /* Base styles for action buttons */
@@ -159,7 +161,6 @@
 .hoverActions .deleteButton:hover {
   background-color: #ef4444; /* Delete Red */
 }
-
 
 /* --- Touch Actions for Mobile (Tap Users) --- */
 .touchActions {
@@ -213,7 +214,6 @@
   background-color: #ef4444;
   color: white;
 }
-
 
 /* --- START: Media Query Magic --- */
 

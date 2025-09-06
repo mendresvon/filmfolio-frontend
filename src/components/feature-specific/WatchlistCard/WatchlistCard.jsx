@@ -86,9 +86,6 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
           <div className={styles.textInfo}>
             <div>
               <h3>{watchlist.name}</h3>
-              {watchlist.description && (
-                <p className={styles.description}>{watchlist.description}</p>
-              )}
             </div>
             <p className={styles.movieCount}>
               {watchlist.movies.length} {watchlist.movies.length === 1 ? "movie" : "movies"}

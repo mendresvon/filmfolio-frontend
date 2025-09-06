@@ -106,24 +106,26 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 1rem;
+    padding: 0.5rem 1rem; /* Reduce vertical padding */
   }
 
+  /* Keep header content in a single row */
   .headerContent {
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
   }
-}
+  
+  .logo {
+    font-size: 1.8rem; /* Make logo smaller on mobile */
+  }
 
-.navLink,
-.logoutButton {
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
+  .nav {
+    gap: 0.75rem; /* Reduce space between nav items */
+  }
 
-.logoutButton:hover,
-.navLink:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--text-headings);
+  .navLink,
+  .logoutButton {
+    font-size: 0.9rem; /* Make nav text smaller */
+    padding: 0.4rem 0.6rem;
+  }
 }

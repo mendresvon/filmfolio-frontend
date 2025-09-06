@@ -7,12 +7,14 @@ import CreateWatchlistModal from "../../components/feature-specific/CreateWatchl
 import { getWatchlists, deleteWatchlist } from "../../api/watchlistService";
 import { FiPlus } from "react-icons/fi";
 import WatchlistCard from "../../components/feature-specific/WatchlistCard/WatchlistCard";
+import EditWatchlistModal from "../../components/feature-specific/EditWatchlistModal/EditWatchlistModal";
 
 const DashboardPage = () => {
   const [watchlists, setWatchlists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingWatchlist, setEditingWatchlist] = useState(null);
 
   useEffect(() => {
     const fetchWatchlists = async () => {
@@ -31,9 +33,6 @@ const DashboardPage = () => {
     fetchWatchlists();
   }, []);
 
-  // --- THE FIX IS HERE ---
-  // We ensure the new watchlist object has an empty `movies` array
-  // before adding it to the state, preventing the render crash.
   const handleWatchlistCreated = (newWatchlist) => {
     const watchlistWithMovies = { ...newWatchlist, movies: [] };
     setWatchlists([...watchlists, watchlistWithMovies]);
@@ -51,12 +50,28 @@ const DashboardPage = () => {
     }
   };
 
+  const handleWatchlistUpdated = (updatedWatchlist) => {
+    setWatchlists(
+      watchlists.map((list) => (list.id === updatedWatchlist.id ? updatedWatchlist : list))
+    );
+  };
+
+  const openEditModal = (watchlist) => {
+    setEditingWatchlist(watchlist);
+  };
+
   return (
     <>
       <CreateWatchlistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onWatchlistCreated={handleWatchlistCreated}
+      />
+      <EditWatchlistModal
+        isOpen={!!editingWatchlist}
+        onClose={() => setEditingWatchlist(null)}
+        watchlist={editingWatchlist}
+        onWatchlistUpdated={handleWatchlistUpdated}
       />
       <div className={styles.dashboardContainer}>
         <motion.h1
@@ -94,6 +109,7 @@ const DashboardPage = () => {
                 watchlist={list}
                 index={index}
                 onDelete={handleDeleteWatchlist}
+                onEdit={openEditModal}
               />
             ))}
           </div>

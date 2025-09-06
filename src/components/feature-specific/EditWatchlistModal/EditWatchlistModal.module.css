@@ -47,3 +47,17 @@
   justify-content: center;
   margin-top: 1.5rem;
 }
+
+/* Add to WatchlistCard.module.css */
+.description {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  opacity: 0.7;
+  margin-top: 0.5rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Limit description to 2 lines */
+  line-clamp: 2;;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

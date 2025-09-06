@@ -18,3 +18,32 @@
   justify-content: center;
   margin-top: 1.5rem;
 }
+
+.textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--glass-border);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-top: -0.5rem; /* Adjust spacing with Input component */
+  margin-bottom: 1rem;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.textarea:hover {
+  border-color: rgba(229, 9, 20, 0.5);
+}
+
+.textarea:focus {
+  border-color: var(--netflix-red);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}

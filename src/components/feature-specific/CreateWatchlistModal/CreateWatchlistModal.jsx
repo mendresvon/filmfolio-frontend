@@ -1,29 +1,31 @@
 import React, { useState } from "react";
-// CORRECTED PATHS: Changed from ../ to ../../
 import Modal from "../../common/Modal/Modal";
 import Input from "../../common/Input/Input";
 import Button from "../../common/Button/Button";
 import { createWatchlist } from "../../../api/watchlistService";
-import styles from "./CreateWatchlistModal.module.css";
+import styles from "./CreateWatchlistModal.module.css"; // We'll share styles
 
 const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
-  const [name, setName] = useState("");
+  const [formData, setFormData] = useState({ name: "", description: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (!name.trim()) {
+    if (!formData.name.trim()) {
       setError("Watchlist name is required.");
       return;
     }
     setLoading(true);
     try {
-      // The path to the service file also needed correction
-      const newWatchlist = await createWatchlist({ name });
-      onWatchlistCreated(newWatchlist); // Pass the new watchlist back to the parent
-      setName("");
+      const newWatchlist = await createWatchlist(formData); // Send full formData
+      onWatchlistCreated(newWatchlist);
+      setFormData({ name: "", description: "" }); // Reset form
       onClose();
     } catch (err) {
       setError(err.msg || "Failed to create watchlist.");
@@ -37,14 +39,22 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
       <h2 className={styles.title}>Create New Watchlist</h2>
       <form onSubmit={handleSubmit}>
         <Input
-          autofocus
-          autoComplete="off"
+          autoFocus
           label="Watchlist Name"
           type="text"
           name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formData.name}
+          onChange={handleChange}
           placeholder="e.g., Must-See Romance"
+          autoComplete="off"
+        />
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          placeholder="Add an optional description..."
+          className= {styles.textarea}
+          rows="3"
         />
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.buttonWrapper}>
@@ -56,5 +66,6 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
     </Modal>
   );
 };
-
+// To reuse the textarea style, you can import EditWatchlistModal.module.css
+// and use its .textarea class, or copy the style into CreateWatchlistModal.module.css
 export default CreateWatchlistModal;

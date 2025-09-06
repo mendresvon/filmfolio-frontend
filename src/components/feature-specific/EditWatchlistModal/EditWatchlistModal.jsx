@@ -11,12 +11,12 @@ const EditWatchlistModal = ({ isOpen, onClose, watchlist, onWatchlistUpdated }) 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // When the modal opens, pre-fill the form with the current watchlist data
     if (watchlist) {
       setFormData({
         name: watchlist.name,
-        description: watchlist.description || "", // Handle null descriptions
+        description: watchlist.description || "",
       });
+      setError("");
     }
   }, [watchlist, isOpen]);
 
@@ -34,7 +34,7 @@ const EditWatchlistModal = ({ isOpen, onClose, watchlist, onWatchlistUpdated }) 
     setLoading(true);
     try {
       const updatedData = await updateWatchlist(watchlist.id, formData);
-      onWatchlistUpdated(updatedData); // Pass the updated watchlist back to the dashboard
+      onWatchlistUpdated(updatedData);
       onClose();
     } catch (err) {
       setError(err.msg || "Failed to update watchlist.");
@@ -48,6 +48,7 @@ const EditWatchlistModal = ({ isOpen, onClose, watchlist, onWatchlistUpdated }) 
       <h2 className={styles.title}>Edit Watchlist</h2>
       <form onSubmit={handleSubmit}>
         <Input
+          autocomplete="off"
           label="Watchlist Name"
           type="text"
           name="name"

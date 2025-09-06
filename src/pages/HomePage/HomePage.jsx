@@ -36,8 +36,7 @@ const HomePage = () => {
       className={styles.homeContainer}
       variants={containerVariants}
       initial="hidden"
-      animate="visible"
-    >
+      animate="visible">
       <Card className={styles.homeCard}>
         <motion.h1 className={styles.title} variants={itemVariants}>
           FilmFolio
@@ -45,7 +44,7 @@ const HomePage = () => {
 
         <motion.div className={styles.author} variants={itemVariants}>
           <TypeAnimation
-            sequence={[1200, "By Von Mendres", 5000]}
+            sequence={[1200, "By Von Mendres 「馬盛中」", 5000]}
             wrapper="span"
             speed={50}
             cursor={true}
@@ -61,10 +60,7 @@ const HomePage = () => {
           </span>
         </motion.p>
 
-        <motion.div
-          variants={itemVariants}
-          className={styles.buttonContainer}
-        >
+        <motion.div variants={itemVariants} className={styles.buttonContainer}>
           {/* --- CHANGE: Button now links to /login --- */}
           <Link to="/login" className={styles.buttonLink}>
             <Button>
@@ -74,7 +70,7 @@ const HomePage = () => {
         </motion.div>
 
         <motion.div className={styles.secondaryAction} variants={itemVariants}>
-           {/* --- CHANGE: Secondary action links to /register --- */}
+          {/* --- CHANGE: Secondary action links to /register --- */}
           Don't have an account?{" "}
           <Link to="/register" className={styles.loginLink}>
             Sign Up

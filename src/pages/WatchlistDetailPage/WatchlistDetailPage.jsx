@@ -55,14 +55,14 @@ const WatchlistDetailPage = () => {
   const handleAddMovie = async (movie) => {
     try {
       const movieData = {
-        movieId: movie.id,
+        movieId: movie.id, // Comes from TMDB search result, "id" is correct here
         movieTitle: movie.title,
         posterPath: movie.posterPath,
       };
-      const newWatchlistMovie = await addMovieToWatchlist(id, movieData);
+      const updatedMoviesList = await addMovieToWatchlist(id, movieData);
       setWatchlist((prev) => ({
         ...prev,
-        movies: [...prev.movies, newWatchlistMovie],
+        movies: updatedMoviesList,
       }));
     } catch (err) {
       alert(err.msg || "Failed to add movie.");
@@ -97,7 +97,6 @@ const WatchlistDetailPage = () => {
         </Link>
         <h1 className={styles.title}>{watchlist.name}</h1>
 
-        {/* --- DESCRIPTION ADDED HERE --- */}
         {watchlist.description && <p className={styles.description}>{watchlist.description}</p>}
 
         <div className={styles.searchSection}>
@@ -146,7 +145,7 @@ const WatchlistDetailPage = () => {
           {watchlist.movies.length > 0 ? (
             watchlist.movies.map((movie, index) => (
               <motion.div
-                key={movie.id}
+                key={movie._id} // <--- UPDATED: Uses MongoDB _id for uniqueness
                 className={styles.movieCard}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

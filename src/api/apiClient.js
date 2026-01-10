@@ -1,17 +1,16 @@
-import axios from 'axios';
+import axios from "axios";
 
 const apiClient = axios.create({
-  // Updated baseURL to your live Render backend
-  baseURL: 'https://filmfolio-backend-bpg6.onrender.com/api', 
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3001/api",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 // Interceptor to add the token to requests
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       // Note: Your backend expects 'x-auth-token', not 'Authorization'.
       // Let's adjust this if needed, but for now, we'll stick to a common standard.
@@ -24,6 +23,5 @@ apiClient.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 
 export default apiClient;

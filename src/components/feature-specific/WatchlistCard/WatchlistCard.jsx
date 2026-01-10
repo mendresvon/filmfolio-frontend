@@ -23,8 +23,6 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
   const renderCover = () => {
     const { movies } = watchlist;
 
-    // --- START: UPDATED LOGIC ---
-
     // Case 1: 4 or more movies (show the 2x2 grid)
     if (movies.length >= 4) {
       const coverItems = movies.slice(0, 4);
@@ -32,7 +30,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
         <div className={styles.gridCover}>
           {coverItems.map((item) => (
             <img
-              key={item.id}
+              key={item._id} // <--- UPDATED: Uses MongoDB _id
               src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
               alt={item.movieTitle}
               className={styles.coverImage}
@@ -64,7 +62,6 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
         </div>
       );
     }
-    // --- END: UPDATED LOGIC ---
   };
 
   const handleMenuToggle = (e) => {
@@ -80,7 +77,8 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
       whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-      <Link to={`/watchlist/${watchlist.id}`} className={styles.cardLink}>
+      {/* UPDATED: Uses watchlist._id for the link */}
+      <Link to={`/watchlist/${watchlist._id}`} className={styles.cardLink}>
         <div className={styles.card}>
           <div className={styles.textInfo}>
             <div>
@@ -108,7 +106,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
           className={`${styles.actionButton} ${styles.deleteButton}`}
           onClick={(e) => {
             e.preventDefault();
-            onDelete(watchlist.id);
+            onDelete(watchlist._id); // <--- UPDATED: Uses watchlist._id
           }}
           aria-label="Delete watchlist">
           <FiTrash2 />
@@ -137,7 +135,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
               className={`${styles.menuButton} ${styles.deleteOption}`}
               onClick={(e) => {
                 e.preventDefault();
-                onDelete(watchlist.id);
+                onDelete(watchlist._id); // <--- UPDATED: Uses watchlist._id
                 setIsMenuOpen(false);
               }}>
               <FiTrash2 /> Delete

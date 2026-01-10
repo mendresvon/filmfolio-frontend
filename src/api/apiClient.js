@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://filmfolio-backend-844640170690.asia-east1.run.app",
+  baseURL: "https://filmfolio-backend-844640170690.asia-east1.run.app/api",
   headers: {
     "Content-Type": "application/json",
   },

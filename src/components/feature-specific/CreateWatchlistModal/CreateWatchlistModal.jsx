@@ -3,7 +3,7 @@ import Modal from "../../common/Modal/Modal";
 import Input from "../../common/Input/Input";
 import Button from "../../common/Button/Button";
 import { createWatchlist } from "../../../api/watchlistService";
-import styles from "./CreateWatchlistModal.module.css"; // We'll share styles
+import styles from "./CreateWatchlistModal.module.css";
 
 const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
   const [formData, setFormData] = useState({ name: "", description: "" });
@@ -23,9 +23,9 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
     }
     setLoading(true);
     try {
-      const newWatchlist = await createWatchlist(formData); // Send full formData
+      const newWatchlist = await createWatchlist(formData);
       onWatchlistCreated(newWatchlist);
-      setFormData({ name: "", description: "" }); // Reset form
+      setFormData({ name: "", description: "" }); // reset form
       onClose();
     } catch (err) {
       setError(err.msg || "Failed to create watchlist.");
@@ -66,6 +66,5 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
     </Modal>
   );
 };
-// To reuse the textarea style, you can import EditWatchlistModal.module.css
-// and use its .textarea class, or copy the style into CreateWatchlistModal.module.css
+
 export default CreateWatchlistModal;

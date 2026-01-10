@@ -21,7 +21,7 @@
   height: 100%;
 }
 
-/* --- TEXT & LAYOUT STYLES --- */
+/* text & layout */
 .textInfo {
   flex: 1;
   padding: 1.25rem;
@@ -52,7 +52,7 @@
   margin-top: 1rem;
 }
 
-/* --- COVER ART STYLES --- */
+/* cover art */
 .coverContainer {
   width: 30%;
   flex-shrink: 0;
@@ -112,9 +112,9 @@
   object-fit: cover;
 }
 
-/* --- START: HYBRID ACTION STYLES --- */
+/* hybrid action styles */
 
-/* Base styles for action buttons */
+/* base styles for action buttons */
 .actionButton,
 .moreOptionsButton {
   background: rgba(0, 0, 0, 0.5);
@@ -134,7 +134,7 @@
   font-size: 1rem;
 }
 
-/* --- Hover Actions for Desktop (Mouse Users) --- */
+/* hover actions for desktop */
 .hoverActions {
   position: absolute;
   top: 0.75rem;
@@ -159,10 +159,10 @@
 }
 
 .hoverActions .deleteButton:hover {
-  background-color: #ef4444; /* Delete Red */
+  background-color: #ef4444; /* delete red */
 }
 
-/* --- Touch Actions for Mobile (Tap Users) --- */
+/* touch actions for mobile */
 .touchActions {
   position: absolute;
   top: 0.75rem;
@@ -215,20 +215,18 @@
   color: white;
 }
 
-/* --- START: Media Query Magic --- */
+/* media query magic */
 
-/* For devices that can hover (like a desktop with a mouse) */
+/* for devices that can hover */
 @media (hover: hover) {
   .touchActions {
-    display: none; /* Hide the three-dots menu */
+    display: none; /* hide three-dots menu */
   }
 }
 
-/* For devices that CANNOT hover (like phones and tablets) */
+/* for devices that cannot hover */
 @media (hover: none) {
   .hoverActions {
-    display: none; /* Hide the hover-to-reveal buttons */
+    display: none; /* hide hover-to-reveal buttons */
   }
 }
-
-/* --- END: Media Query Magic --- */

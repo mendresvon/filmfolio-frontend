@@ -9,13 +9,13 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
 
-  // This effect runs when the component mounts or the token changes.
+  // check token on mount/change
   useEffect(() => {
     if (token) {
       try {
         const decoded = jwtDecode(token);
         if (decoded.exp * 1000 < Date.now()) {
-          // If token is expired, clear it without redirecting
+          // clear expired token
           localStorage.removeItem("token");
           setToken(null);
           setUser(null);
@@ -34,8 +34,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     const data = await apiLogin(credentials);
-    localStorage.setItem("token", data.token); // Set token in storage
-    setToken(data.token); // Set token in state
+    // save token and update state
+    localStorage.setItem("token", data.token);
+    setToken(data.token);
     const decoded = jwtDecode(data.token);
     setUser(decoded.user);
   };
@@ -44,12 +45,9 @@ export const AuthProvider = ({ children }) => {
     await apiRegister(userData);
   };
 
-  // --- THE FIX IS HERE ---
-  // The logout function now directly handles the page navigation.
   const logout = () => {
     localStorage.removeItem("token");
-    // This forces a full page reload to the homepage, clearing all state
-    // and bypassing any React Router race conditions.
+    // force reload to clear state and redirect
     window.location.href = '/';
   };
 

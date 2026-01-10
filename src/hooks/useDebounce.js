@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// This custom hook delays updating a value until a certain amount of time has passed.
+// delay value update
 export function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -9,7 +9,7 @@ export function useDebounce(value, delay) {
       setDebouncedValue(value);
     }, delay);
 
-    // Cleanup function to cancel the timeout if the value changes
+    // cleanup timeout
     return () => {
       clearTimeout(handler);
     };

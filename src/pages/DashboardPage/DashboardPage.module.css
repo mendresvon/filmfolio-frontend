@@ -1,9 +1,8 @@
-/* src/pages/DashboardPage/DashboardPage.module.css */
 .dashboardContainer {
   padding-top: 2rem;
 }
 
-/* --- CHANGE: Styled the main title --- */
+/* styled the main title */
 .title {
   font-family: var(--font-family-netflix);
   font-size: 4.5rem;
@@ -68,20 +67,20 @@
 
 @media (max-width: 768px) {
   .title {
-    /* Reduce the main title size on mobile */
+    /* reduce the main title size on mobile */
     font-size: 2.5rem;
     margin-bottom: 2rem;
   }
 
   .header {
-    /* Stack the "Your Watchlists" title and "Create New" button */
+    /* stack the "your watchlists" title and "create new" button */
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
 
   .watchlistGrid {
-    /* Switch to a single-column layout for the cards */
+    /* switch to a single-column layout for the cards */
     grid-template-columns: 1fr;
     gap: 1rem;
   }

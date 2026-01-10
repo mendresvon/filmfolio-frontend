@@ -1,4 +1,3 @@
-// src/components/feature-specific/AuthForm/AuthForm.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
@@ -53,7 +52,6 @@ const AuthForm = ({ isRegister = false }) => {
             value={formData.email}
             onChange={handleChange}
             placeholder="you@example.com"
-            // --- CHANGE: Added autoComplete attribute ---
             autoComplete={isRegister ? "email" : "username"}
           />
           <Input
@@ -63,7 +61,6 @@ const AuthForm = ({ isRegister = false }) => {
             value={formData.password}
             onChange={handleChange}
             placeholder="••••••••"
-            // --- CHANGE: Added autoComplete attribute ---
             autoComplete={isRegister ? "new-password" : "current-password"}
           />
           {error && <p className={styles.error}>{error}</p>}

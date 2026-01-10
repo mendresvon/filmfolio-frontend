@@ -1,4 +1,3 @@
-// src/pages/HomePage/HomePage.jsx
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -6,7 +5,7 @@ import { TypeAnimation } from "react-type-animation";
 import styles from "./HomePage.module.css";
 import Button from "../../components/common/Button/Button";
 import Card from "../../components/common/Card/Card";
-import { FiLogIn } from "react-icons/fi"; // Changed icon
+import { FiLogIn } from "react-icons/fi";
 
 const HomePage = () => {
   const containerVariants = {
@@ -61,7 +60,6 @@ const HomePage = () => {
         </motion.p>
 
         <motion.div variants={itemVariants} className={styles.buttonContainer}>
-          {/* --- CHANGE: Button now links to /login --- */}
           <Link to="/login" className={styles.buttonLink}>
             <Button>
               Login <FiLogIn style={{ marginLeft: "8px" }} />
@@ -70,7 +68,6 @@ const HomePage = () => {
         </motion.div>
 
         <motion.div className={styles.secondaryAction} variants={itemVariants}>
-          {/* --- CHANGE: Secondary action links to /register --- */}
           Don't have an account?{" "}
           <Link to="/register" className={styles.loginLink}>
             Sign Up

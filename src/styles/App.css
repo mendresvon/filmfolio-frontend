@@ -1,18 +1,16 @@
-/* src/styles/App.css */
-
 :root {
-  /* Colors */
+  /* colors */
   --background-dark: #0c0a09;
   --text-primary: rgba(255, 255, 255, 0.85);
   --text-headings: #ffffff;
   --netflix-red: #e50914;
   --accent-glow: rgba(229, 9, 20, 0.4);
 
-  /* Glassmorphism Effect */
+  /* glass effect */
   --glass-bg: rgba(30, 30, 30, 0.75);
   --glass-border: rgba(255, 255, 255, 0.1);
 
-  /* Typography */
+  /* typography */
   --font-family-sans: "Inter", sans-serif;
   --font-family-serif: "Playfair Display", serif;
   --font-family-netflix: "Bebas Neue", sans-serif;
@@ -28,7 +26,7 @@ body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
-  /* This is the default background for the landing page */
+  /* default landing background */
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
     url("../assets/netflix-background-image.jpg");
   background-size: cover;
@@ -36,7 +34,7 @@ body {
   background-attachment: fixed;
 }
 
-/* --- CHANGE: This rule now uses your new cinema-seats.jpg image --- */
+/* dashboard background */
 body.dashboard-bg {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
       url("../assets/cinema-seats.jpg");

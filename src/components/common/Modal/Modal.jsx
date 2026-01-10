@@ -19,7 +19,7 @@ const Modal = ({ isOpen, onClose, children }) => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
           >
             <button className={styles.closeButton} onClick={onClose}>
               <FiX />

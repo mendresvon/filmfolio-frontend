@@ -1,8 +1,7 @@
 import apiClient from "./apiClient";
 
-// --- Watchlist Functions ---
+// watchlist functions
 
-// GET /api/watchlists
 export const getWatchlists = async () => {
   try {
     const response = await apiClient.get("/watchlists");
@@ -12,7 +11,6 @@ export const getWatchlists = async () => {
   }
 };
 
-// POST /api/watchlists
 export const createWatchlist = async (watchlistData) => {
   try {
     const response = await apiClient.post("/watchlists", watchlistData);
@@ -22,7 +20,6 @@ export const createWatchlist = async (watchlistData) => {
   }
 };
 
-// PUT /api/watchlists/:id
 export const updateWatchlist = async (id, watchlistData) => {
   try {
     const response = await apiClient.put(`/watchlists/${id}`, watchlistData);
@@ -32,7 +29,6 @@ export const updateWatchlist = async (id, watchlistData) => {
   }
 };
 
-// DELETE /api/watchlists/:id
 export const deleteWatchlist = async (id) => {
   try {
     const response = await apiClient.delete(`/watchlists/${id}`);
@@ -42,9 +38,8 @@ export const deleteWatchlist = async (id) => {
   }
 };
 
-// --- Watchlist Movie Functions ---
+// movie functions
 
-// POST /api/watchlists/:id/movies
 export const addMovieToWatchlist = async (watchlistId, movieData) => {
   try {
     const response = await apiClient.post(`/watchlists/${watchlistId}/movies`, movieData);
@@ -54,7 +49,6 @@ export const addMovieToWatchlist = async (watchlistId, movieData) => {
   }
 };
 
-// DELETE /api/watchlists/:watchlistId/movies/:movieId
 export const removeMovieFromWatchlist = async (watchlistId, movieId) => {
   try {
     const response = await apiClient.delete(`/watchlists/${watchlistId}/movies/${movieId}`);
@@ -64,9 +58,8 @@ export const removeMovieFromWatchlist = async (watchlistId, movieId) => {
   }
 };
 
-// --- Movie Search Function ---
+// search functions
 
-// GET /api/movies/search?query=...
 export const searchMovies = async (query) => {
   try {
     const response = await apiClient.get(`/movies/search?query=${query}`);
@@ -76,7 +69,6 @@ export const searchMovies = async (query) => {
   }
 };
 
-// GET /api/watchlists/:id
 export const getWatchlistById = async (id) => {
   try {
     const response = await apiClient.get(`/watchlists/${id}`);

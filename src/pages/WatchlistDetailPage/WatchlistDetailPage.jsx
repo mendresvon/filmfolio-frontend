@@ -40,6 +40,7 @@ const WatchlistDetailPage = () => {
     fetchWatchlist();
   }, [id]);
 
+  // trigger search when debounced query changes
   useEffect(() => {
     if (debouncedSearchQuery) {
       setIsSearching(true);
@@ -54,8 +55,9 @@ const WatchlistDetailPage = () => {
 
   const handleAddMovie = async (movie) => {
     try {
+      // map tmdb data to our schema
       const movieData = {
-        movieId: movie.id, // Comes from TMDB search result, "id" is correct here
+        movieId: movie.id, // tmdb uses 'id'
         movieTitle: movie.title,
         posterPath: movie.posterPath,
       };
@@ -145,7 +147,7 @@ const WatchlistDetailPage = () => {
           {watchlist.movies.length > 0 ? (
             watchlist.movies.map((movie, index) => (
               <motion.div
-                key={movie._id} // <--- UPDATED: Uses MongoDB _id for uniqueness
+                key={movie._id}
                 className={styles.movieCard}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

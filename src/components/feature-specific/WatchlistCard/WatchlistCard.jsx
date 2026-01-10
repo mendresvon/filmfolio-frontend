@@ -8,6 +8,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
+  // close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -23,14 +24,14 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
   const renderCover = () => {
     const { movies } = watchlist;
 
-    // Case 1: 4 or more movies (show the 2x2 grid)
+    // if we have enough movies, show a cool 2x2 grid
     if (movies.length >= 4) {
       const coverItems = movies.slice(0, 4);
       return (
         <div className={styles.gridCover}>
           {coverItems.map((item) => (
             <img
-              key={item._id} // <--- UPDATED: Uses MongoDB _id
+              key={item._id}
               src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
               alt={item.movieTitle}
               className={styles.coverImage}
@@ -39,7 +40,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
         </div>
       );
     }
-    // Case 2: 1, 2, or 3 movies (show the first movie's poster)
+    // otherwise just show the first poster we have
     else if (movies.length > 0) {
       return (
         <img
@@ -49,7 +50,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
         />
       );
     }
-    // Case 3: No movies (show the placeholder)
+    // fallback for empty lists
     else {
       return (
         <div className={styles.placeholderCover}>
@@ -77,7 +78,6 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
       whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-      {/* UPDATED: Uses watchlist._id for the link */}
       <Link to={`/watchlist/${watchlist._id}`} className={styles.cardLink}>
         <div className={styles.card}>
           <div className={styles.textInfo}>
@@ -106,7 +106,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
           className={`${styles.actionButton} ${styles.deleteButton}`}
           onClick={(e) => {
             e.preventDefault();
-            onDelete(watchlist._id); // <--- UPDATED: Uses watchlist._id
+            onDelete(watchlist._id);
           }}
           aria-label="Delete watchlist">
           <FiTrash2 />
@@ -135,7 +135,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
               className={`${styles.menuButton} ${styles.deleteOption}`}
               onClick={(e) => {
                 e.preventDefault();
-                onDelete(watchlist._id); // <--- UPDATED: Uses watchlist._id
+                onDelete(watchlist._id);
                 setIsMenuOpen(false);
               }}>
               <FiTrash2 /> Delete

@@ -1,4 +1,3 @@
-// src/components/layout/Header/Header.jsx
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -9,7 +8,6 @@ import { FiLogOut, FiLogIn } from "react-icons/fi";
 const Header = () => {
   const { isAuthenticated, logout } = useAuth();
   
-  // The handleLogout function is now simplified
   const handleLogout = () => {
     logout();
   };

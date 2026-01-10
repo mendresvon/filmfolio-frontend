@@ -26,7 +26,6 @@ const EditWatchlistModal = ({ isOpen, onClose, watchlist, onWatchlistUpdated }) 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Watchlist Data:", watchlist); // <--- Add this line
     setError("");
     if (!formData.name.trim()) {
       setError("Watchlist name is required.");

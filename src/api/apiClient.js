@@ -7,14 +7,12 @@ const apiClient = axios.create({
   },
 });
 
-// Interceptor to add the token to requests
+// add token to requests
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Note: Your backend expects 'x-auth-token', not 'Authorization'.
-      // Let's adjust this if needed, but for now, we'll stick to a common standard.
-      // If you face auth issues, we might change this line.
+      // attach token if available
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;

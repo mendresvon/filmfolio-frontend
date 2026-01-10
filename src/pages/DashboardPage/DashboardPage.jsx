@@ -42,7 +42,7 @@ const DashboardPage = () => {
     if (window.confirm("Are you sure you want to delete this watchlist?")) {
       try {
         await deleteWatchlist(watchlistId);
-        setWatchlists(watchlists.filter((list) => list.id !== watchlistId));
+        setWatchlists(watchlists.filter((list) => list._id !== watchlistId));
       } catch (err) {
         console.error("Failed to delete watchlist:", err);
         alert("Could not delete the watchlist.");
@@ -52,7 +52,7 @@ const DashboardPage = () => {
 
   const handleWatchlistUpdated = (updatedWatchlist) => {
     setWatchlists(
-      watchlists.map((list) => (list.id === updatedWatchlist.id ? updatedWatchlist : list))
+      watchlists.map((list) => (list._id === updatedWatchlist._id ? updatedWatchlist : list))
     );
   };
 
@@ -105,7 +105,7 @@ const DashboardPage = () => {
           <div className={styles.watchlistGrid}>
             {watchlists.map((list, index) => (
               <WatchlistCard
-                key={list.id}
+                key={list._id}
                 watchlist={list}
                 index={index}
                 onDelete={handleDeleteWatchlist}

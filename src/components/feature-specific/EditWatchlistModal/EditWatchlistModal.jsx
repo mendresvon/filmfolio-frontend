@@ -33,7 +33,7 @@ const EditWatchlistModal = ({ isOpen, onClose, watchlist, onWatchlistUpdated }) 
     }
     setLoading(true);
     try {
-      const updatedData = await updateWatchlist(watchlist.id, formData);
+      const updatedData = await updateWatchlist(watchlist._id, formData);
       onWatchlistUpdated(updatedData);
       onClose();
     } catch (err) {

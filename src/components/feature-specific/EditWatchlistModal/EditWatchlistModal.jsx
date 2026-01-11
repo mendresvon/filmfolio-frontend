@@ -37,7 +37,11 @@ const EditWatchlistModal = ({ isOpen, onClose, watchlist, onWatchlistUpdated }) 
       onWatchlistUpdated(updatedData);
       onClose();
     } catch (err) {
-      setError(err.msg || "Failed to update watchlist.");
+      // handle express-validator errors (array format) or simple msg format
+      const errorMessage = err.errors 
+        ? err.errors.map(e => e.msg).join(', ') 
+        : (err.msg || "Failed to update watchlist.");
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

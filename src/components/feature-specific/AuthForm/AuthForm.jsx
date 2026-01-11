@@ -7,8 +7,13 @@ import Button from "../../common/Button/Button";
 import styles from "./AuthForm.module.css";
 
 const AuthForm = ({ isRegister = false }) => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -16,22 +21,39 @@ const AuthForm = ({ isRegister = false }) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // clear messages when user starts typing
+    if (error) setError("");
+    if (success) setSuccess("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
     setLoading(true);
+
+    // password confirmation check for registration
+    if (isRegister && formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
+
     try {
       if (isRegister) {
-        await register(formData);
-        navigate("/login");
+        await register({ email: formData.email, password: formData.password });
+        setSuccess("Account created successfully! Redirecting to login...");
+        setTimeout(() => navigate("/login"), 1500);
       } else {
-        await login(formData);
+        await login({ email: formData.email, password: formData.password });
         navigate("/dashboard");
       }
     } catch (err) {
-      setError(err.msg || "An unexpected error occurred.");
+      // handle express-validator errors (array format) or simple msg format
+      const errorMessage = err.errors 
+        ? err.errors.map(e => e.msg).join(', ') 
+        : (err.msg || "An unexpected error occurred.");
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -42,7 +64,9 @@ const AuthForm = ({ isRegister = false }) => {
       <Card className={styles.authCard}>
         <h1 className={styles.title}>{isRegister ? "Create Account" : "Welcome Back"}</h1>
         <p className={styles.subtitle}>
-          {isRegister ? "Never forget a movie again." : "Never forget a movie again."}
+          {isRegister
+            ? "Join FilmFolio and start tracking your movies."
+            : "Sign in to access your watchlists."}
         </p>
         <form onSubmit={handleSubmit}>
           <Input
@@ -63,9 +87,21 @@ const AuthForm = ({ isRegister = false }) => {
             placeholder="••••••••"
             autoComplete={isRegister ? "new-password" : "current-password"}
           />
+          {isRegister && (
+            <Input
+              label="Confirm Password"
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="••••••••"
+              autoComplete="new-password"
+            />
+          )}
           {error && <p className={styles.error}>{error}</p>}
+          {success && <p className={styles.success}>{success}</p>}
           <div className={styles.buttonWrapper}>
-            <Button type="submit" loading={loading} disabled={loading}>
+            <Button type="submit" loading={loading} disabled={loading || success}>
               {isRegister ? "Create Account" : "Login"}
             </Button>
           </div>
@@ -87,3 +123,4 @@ const AuthForm = ({ isRegister = false }) => {
 };
 
 export default AuthForm;
+

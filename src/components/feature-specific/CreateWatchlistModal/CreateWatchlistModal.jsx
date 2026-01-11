@@ -28,7 +28,11 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
       setFormData({ name: "", description: "" }); // reset form
       onClose();
     } catch (err) {
-      setError(err.msg || "Failed to create watchlist.");
+      // handle express-validator errors (array format) or simple msg format
+      const errorMessage = err.errors 
+        ? err.errors.map(e => e.msg).join(', ') 
+        : (err.msg || "Failed to create watchlist.");
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

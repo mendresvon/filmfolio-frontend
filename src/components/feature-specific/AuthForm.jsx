@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
-import Card from "../../common/Card/Card";
-import Input from "../../common/Input/Input";
-import Button from "../../common/Button/Button";
-import styles from "./AuthForm.module.css";
+import { useAuth } from "../../hooks/useAuth";
+import Card from "../common/Card";
+import Input from "../common/Input";
+import Button from "../common/Button";
 
 const AuthForm = ({ isRegister = false }) => {
   const [formData, setFormData] = useState({
@@ -21,7 +20,6 @@ const AuthForm = ({ isRegister = false }) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // clear messages when user starts typing
     if (error) setError("");
     if (success) setSuccess("");
   };
@@ -32,7 +30,6 @@ const AuthForm = ({ isRegister = false }) => {
     setSuccess("");
     setLoading(true);
 
-    // password confirmation check for registration
     if (isRegister && formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       setLoading(false);
@@ -49,7 +46,6 @@ const AuthForm = ({ isRegister = false }) => {
         navigate("/dashboard");
       }
     } catch (err) {
-      // handle express-validator errors (array format) or simple msg format
       const errorMessage = err.errors 
         ? err.errors.map(e => e.msg).join(', ') 
         : (err.msg || "An unexpected error occurred.");
@@ -60,10 +56,12 @@ const AuthForm = ({ isRegister = false }) => {
   };
 
   return (
-    <div className={styles.formContainer}>
-      <Card className={styles.authCard}>
-        <h1 className={styles.title}>{isRegister ? "Create Account" : "Welcome Back"}</h1>
-        <p className={styles.subtitle}>
+    <div className="flex justify-center items-center min-h-[90vh]">
+      <Card className="w-full max-w-[450px]">
+        <h1 className="text-center font-netflix font-medium text-4xl tracking-wide text-netflix-red">
+          {isRegister ? "Create Account" : "Welcome Back"}
+        </h1>
+        <p className="text-center text-text-primary mb-10">
           {isRegister
             ? "Join FilmFolio and start tracking your movies."
             : "Sign in to access your watchlists."}
@@ -98,22 +96,28 @@ const AuthForm = ({ isRegister = false }) => {
               autoComplete="new-password"
             />
           )}
-          {error && <p className={styles.error}>{error}</p>}
-          {success && <p className={styles.success}>{success}</p>}
-          <div className={styles.buttonWrapper}>
+          {error && <p className="text-error text-center mb-4">{error}</p>}
+          {success && <p className="text-success text-center mb-4 font-medium">{success}</p>}
+          <div className="flex justify-center mt-8">
             <Button type="submit" loading={loading} disabled={loading || success}>
               {isRegister ? "Create Account" : "Login"}
             </Button>
           </div>
         </form>
-        <div className={styles.switchAuth}>
+        <div className="mt-8 text-center text-sm text-white/60">
           {isRegister ? (
             <p>
-              Already have an account? <Link to="/login">Sign In</Link>
+              Already have an account?{" "}
+              <Link to="/login" className="text-netflix-red font-medium no-underline transition-colors hover:underline hover:text-netflix-red-hover">
+                Sign In
+              </Link>
             </p>
           ) : (
             <p>
-              Don't have an account? <Link to="/register">Sign Up</Link>
+              Don't have an account?{" "}
+              <Link to="/register" className="text-netflix-red font-medium no-underline transition-colors hover:underline hover:text-netflix-red-hover">
+                Sign Up
+              </Link>
             </p>
           )}
         </div>
@@ -123,4 +127,3 @@ const AuthForm = ({ isRegister = false }) => {
 };
 
 export default AuthForm;
-

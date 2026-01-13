@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import styles from "./DashboardPage.module.css";
-import Loader from "../../components/common/Loader/Loader";
-import Button from "../../components/common/Button/Button";
-import CreateWatchlistModal from "../../components/feature-specific/CreateWatchlistModal/CreateWatchlistModal";
-import { getWatchlists, deleteWatchlist } from "../../api/watchlistService";
+import Loader from "../components/common/Loader";
+import Button from "../components/common/Button";
+import CreateWatchlistModal from "../components/feature-specific/CreateWatchlistModal";
+import { getWatchlists, deleteWatchlist } from "../api/watchlistService";
 import { FiPlus } from "react-icons/fi";
-import WatchlistCard from "../../components/feature-specific/WatchlistCard/WatchlistCard";
-import EditWatchlistModal from "../../components/feature-specific/EditWatchlistModal/EditWatchlistModal";
+import WatchlistCard from "../components/feature-specific/WatchlistCard";
+import EditWatchlistModal from "../components/feature-specific/EditWatchlistModal";
 
 const DashboardPage = () => {
   const [watchlists, setWatchlists] = useState([]);
@@ -73,36 +72,36 @@ const DashboardPage = () => {
         watchlist={editingWatchlist}
         onWatchlistUpdated={handleWatchlistUpdated}
       />
-      <div className={styles.dashboardContainer}>
+      <div className="pt-8">
         <motion.h1
-          className={styles.title}
+          className="font-netflix text-7xl max-md:text-4xl font-light tracking-wide text-text-headings mb-16 max-md:mb-8 text-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}>
           Welcome Back
         </motion.h1>
 
-        <div className={styles.header}>
-          <h2 className={styles.sectionTitle}>Your Watchlists</h2>
+        <div className="flex justify-between items-center mb-8 pb-4 border-b border-glass-border max-md:flex-col max-md:items-start max-md:gap-4">
+          <h2 className="text-3xl font-medium text-text-headings m-0 p-0 border-none">Your Watchlists</h2>
           <Button onClick={() => setIsModalOpen(true)}>
             <FiPlus /> Create New
           </Button>
         </div>
 
         {loading && (
-          <div className={styles.loaderContainer}>
+          <div className="flex justify-center py-16">
             <Loader />
           </div>
         )}
-        {error && <p className={styles.errorText}>{error}</p>}
+        {error && <p className="text-center text-error">{error}</p>}
 
         {!loading && !error && watchlists.length === 0 && (
-          <p className={styles.emptyState}>
+          <p className="text-center py-16 text-text-primary opacity-70">
             You don't have any watchlists yet. Create one to get started!
           </p>
         )}
 
         {!loading && !error && (
-          <div className={styles.watchlistGrid}>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] max-md:grid-cols-1 gap-6 max-md:gap-4 auto-rows-fr">
             {watchlists.map((list, index) => (
               <WatchlistCard
                 key={list._id}

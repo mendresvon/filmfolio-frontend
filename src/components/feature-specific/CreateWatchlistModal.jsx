@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Modal from "../../common/Modal/Modal";
-import Input from "../../common/Input/Input";
-import Button from "../../common/Button/Button";
-import { createWatchlist } from "../../../api/watchlistService";
-import styles from "./CreateWatchlistModal.module.css";
+import Modal from "../common/Modal";
+import Input from "../common/Input";
+import Button from "../common/Button";
+import { createWatchlist } from "../../api/watchlistService";
 
 const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
   const [formData, setFormData] = useState({ name: "", description: "" });
@@ -25,10 +24,9 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
     try {
       const newWatchlist = await createWatchlist(formData);
       onWatchlistCreated(newWatchlist);
-      setFormData({ name: "", description: "" }); // reset form
+      setFormData({ name: "", description: "" });
       onClose();
     } catch (err) {
-      // handle express-validator errors (array format) or simple msg format
       const errorMessage = err.errors 
         ? err.errors.map(e => e.msg).join(', ') 
         : (err.msg || "Failed to create watchlist.");
@@ -40,7 +38,7 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <h2 className={styles.title}>Create New Watchlist</h2>
+      <h2 className="text-center mb-8 font-medium text-2xl text-text-headings">Create New Watchlist</h2>
       <form onSubmit={handleSubmit}>
         <Input
           autoFocus
@@ -57,11 +55,11 @@ const CreateWatchlistModal = ({ isOpen, onClose, onWatchlistCreated }) => {
           value={formData.description}
           onChange={handleChange}
           placeholder="Add an optional description..."
-          className= {styles.textarea}
+          className="w-full py-3 px-4 border border-glass-border bg-black/20 text-text-primary rounded-lg text-base outline-none transition-all duration-300 -mt-2 mb-4 resize-y font-inherit hover:border-netflix-red/50 focus:border-netflix-red focus:shadow-[0_0_0_3px_var(--color-accent-glow)] placeholder:text-white/40"
           rows="3"
         />
-        {error && <p className={styles.error}>{error}</p>}
-        <div className={styles.buttonWrapper}>
+        {error && <p className="text-error text-center mb-4 text-sm">{error}</p>}
+        <div className="flex justify-center mt-6">
           <Button type="submit" loading={loading} disabled={loading}>
             Create Watchlist
           </Button>

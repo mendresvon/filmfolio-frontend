@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import styles from "./Button.module.css";
-import Loader from "../Loader/Loader";
+
+import Loader from "./Loader";
 
 const Button = ({
   children,
@@ -13,7 +13,7 @@ const Button = ({
 }) => {
   return (
     <motion.button
-      className={styles.styledButton}
+      className="px-10 py-4 rounded-full border-none bg-netflix-red text-text-headings font-medium cursor-pointer text-base shadow-lg transition-all flex items-center justify-content-center hover:-translate-y-0.5 hover:shadow-[0_8px_25px_var(--color-accent-glow)] disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-glass-border"
       onClick={onClick}
       type={type}
       disabled={disabled || loading}

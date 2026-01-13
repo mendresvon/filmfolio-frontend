@@ -1,4 +1,81 @@
-/* This file is now intentionally minimal. All global styles are in App.css */
+@import "tailwindcss";
+
+/* custom theme extending Tailwind defaults */
+@theme {
+  /* colors */
+  --color-background-dark: #0c0a09;
+  --color-text-primary: rgba(255, 255, 255, 0.85);
+  --color-text-headings: #ffffff;
+  --color-netflix-red: #e50914;
+  --color-netflix-red-hover: #ff3333;
+  --color-accent-glow: rgba(229, 9, 20, 0.4);
+  --color-glass-bg: rgba(30, 30, 30, 0.75);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-error: #ff6b6b;
+  --color-success: #51cf66;
+
+  /* fonts */
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-netflix: "Bebas Neue", sans-serif;
+}
+
+/* global styles */
 body {
-  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-background-dark);
+  color: var(--color-text-primary);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  /* default landing background */
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
+    url("./assets/netflix-background-image.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* dashboard background */
+body.dashboard-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("./assets/cinema-seats.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* global container */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    padding: 1rem;
+  }
+}
+
+/* animation for loader spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* autofill override for inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--color-text-headings) !important;
+  -webkit-box-shadow: 0 0 0 30px var(--color-background-dark) inset !important;
+  box-shadow: 0 0 0 30px var(--color-background-dark) inset !important;
 }

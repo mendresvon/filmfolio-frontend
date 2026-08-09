@@ -1,12 +1,44 @@
-# React + Vite
+# FilmFolio — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React single-page app for [FilmFolio](https://github.com/mendresvon/filmfolio), a movie discovery and watchlist manager. This repo is the client half; see the [backend](https://github.com/mendresvon/filmfolio-backend) for the API and the [parent project](https://github.com/mendresvon/filmfolio) for the full-stack overview.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-19.1-61DAFB?style=flat&logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=flat&logo=vite&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-7.8-CA4245?style=flat&logo=reactrouter&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## What It Does
 
-## Expanding the ESLint configuration
+- User authentication (login/register) against the FilmFolio API, with JWT stored client-side and decoded via `jwt-decode`
+- Protected routing — dashboard and watchlist detail pages redirect to login when unauthenticated
+- Movie search and watchlist management backed by the TMDB API through the backend
+- Route-transition animations with Framer Motion and a typewriter-style intro with `react-type-animation`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Structure
+
+```
+src/
+├── api/            # Axios client + backend API calls
+├── components/
+│   ├── layout/     # Header, protected-route guard, animated page transitions
+│   ├── common/      # Shared UI primitives
+│   └── feature-specific/
+├── context/        # AuthContext (JWT session state)
+├── hooks/          # useAuth and friends
+└── pages/          # HomePage, LoginPage, RegisterPage, DashboardPage, WatchlistDetailPage
+```
+
+## Running Locally
+
+Requires the [backend](https://github.com/mendresvon/filmfolio-backend) running (default `http://localhost:3001`).
+
+```bash
+npm install
+npm run dev
+```
+
+Opens at `http://localhost:5173`.
+
+```bash
+npm run build     # production build
+npm run lint       # ESLint
+```

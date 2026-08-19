@@ -1,4 +1,4 @@
-# FilmFolio — Frontend
+# FilmFolio: Frontend
 
 React single-page app for [FilmFolio](https://github.com/mendresvon/filmfolio), a movie discovery and watchlist manager. This repo is the client half; see the [backend](https://github.com/mendresvon/filmfolio-backend) for the API and the [parent project](https://github.com/mendresvon/filmfolio) for the full-stack overview.
 
@@ -9,7 +9,7 @@ React single-page app for [FilmFolio](https://github.com/mendresvon/filmfolio), 
 ## What It Does
 
 - User authentication (login/register) against the FilmFolio API, with JWT stored client-side and decoded via `jwt-decode`
-- Protected routing — dashboard and watchlist detail pages redirect to login when unauthenticated
+- Protected routing: dashboard and watchlist detail pages redirect to login when unauthenticated
 - Movie search and watchlist management backed by the TMDB API through the backend
 - Route-transition animations with Framer Motion and a typewriter-style intro with `react-type-animation`
 

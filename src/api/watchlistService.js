@@ -1,4 +1,5 @@
-import apiClient from "./apiClient";
+import apiClient from "./apiClient.js";
+import { normalizeApiError } from "./apiErrors.js";
 
 // watchlist functions
 
@@ -7,7 +8,7 @@ export const getWatchlists = async () => {
     const response = await apiClient.get("/watchlists");
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };
 
@@ -16,7 +17,7 @@ export const createWatchlist = async (watchlistData) => {
     const response = await apiClient.post("/watchlists", watchlistData);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };
 
@@ -25,7 +26,7 @@ export const updateWatchlist = async (id, watchlistData) => {
     const response = await apiClient.put(`/watchlists/${id}`, watchlistData);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };
 
@@ -34,7 +35,7 @@ export const deleteWatchlist = async (id) => {
     const response = await apiClient.delete(`/watchlists/${id}`);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };
 
@@ -45,7 +46,7 @@ export const addMovieToWatchlist = async (watchlistId, movieData) => {
     const response = await apiClient.post(`/watchlists/${watchlistId}/movies`, movieData);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };
 
@@ -54,18 +55,21 @@ export const removeMovieFromWatchlist = async (watchlistId, movieId) => {
     const response = await apiClient.delete(`/watchlists/${watchlistId}/movies/${movieId}`);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };
 
 // search functions
 
-export const searchMovies = async (query) => {
+export const searchMovies = async (query, { signal } = {}) => {
   try {
-    const response = await apiClient.get(`/movies/search?query=${query}`);
+    const response = await apiClient.get("/movies/search", {
+      params: { query },
+      signal,
+    });
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };
 
@@ -74,6 +78,6 @@ export const getWatchlistById = async (id) => {
     const response = await apiClient.get(`/watchlists/${id}`);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };

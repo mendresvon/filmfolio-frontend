@@ -31,6 +31,7 @@ const WatchlistDetailPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState(null);
   const [addingMovieId, setAddingMovieId] = useState(null);
   const [feedback, setFeedback] = useState(null);
 
@@ -57,18 +58,38 @@ const WatchlistDetailPage = () => {
     fetchWatchlist();
   }, [id]);
 
-  // trigger search when debounced query changes
+  // Cancel the previous request and ignore stale results when the query changes.
   useEffect(() => {
-    if (debouncedSearchQuery) {
-      setIsSearching(true);
-      searchMovies(debouncedSearchQuery)
-        .then((data) => setSearchResults(data))
-        .catch((err) => console.error("Search failed:", err))
-        .finally(() => setIsSearching(false));
-    } else {
+    const query = debouncedSearchQuery.trim();
+    if (!query) {
       setSearchResults([]);
+      setSearchError(null);
+      setIsSearching(false);
+      return undefined;
     }
+
+    const controller = new AbortController();
+    setSearchResults([]);
+    setSearchError(null);
+    setIsSearching(true);
+
+    searchMovies(query, { signal: controller.signal })
+      .then((data) => {
+        if (!controller.signal.aborted) setSearchResults(data);
+      })
+      .catch((err) => {
+        if (!controller.signal.aborted) {
+          setSearchError(err?.msg || err?.message || "Search failed. Please try again.");
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setIsSearching(false);
+      });
+
+    return () => controller.abort();
   }, [debouncedSearchQuery]);
+
+  const hasCurrentSearch = searchQuery.trim() === debouncedSearchQuery.trim();
 
   const handleAddMovie = async (movie) => {
     const isAlreadyAdded = watchlist.movies.some(
@@ -158,7 +179,11 @@ const WatchlistDetailPage = () => {
           {isSearching && <Loader />}
         </div>
 
-        {searchResults.length > 0 && (
+        {hasCurrentSearch && searchError && (
+          <p className="mb-8 text-center text-error" role="alert">{searchError}</p>
+        )}
+
+        {hasCurrentSearch && searchResults.length > 0 && (
           <>
             <h2 className="text-2xl max-md:text-xl font-medium text-text-headings mb-8 pb-4 border-b border-glass-border">Search Results</h2>
             <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] max-md:grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-6 max-md:gap-4 mb-12 pb-8 border-b border-glass-border">

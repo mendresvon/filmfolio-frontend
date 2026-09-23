@@ -92,9 +92,9 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
       </Link>
 
       {/* hover actions for desktop */}
-      <div className="absolute top-3 right-3 flex gap-2 opacity-0 transition-opacity z-5 group-hover:opacity-100 [@media(hover:none)]:hidden">
+      <div className="absolute top-3 right-3 flex gap-2 opacity-0 transition-opacity z-5 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:hidden">
         <button
-          className="bg-black/50 border border-glass-border text-text-primary rounded-full w-9 h-9 flex justify-center items-center cursor-pointer backdrop-blur-sm transition-all z-10 p-0 text-base hover:text-white hover:bg-netflix-red"
+          className="bg-black/50 border border-glass-border text-text-primary rounded-full w-9 h-9 flex justify-center items-center cursor-pointer backdrop-blur-sm transition-all z-10 p-0 text-base hover:text-white hover:bg-netflix-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           onClick={(e) => {
             e.preventDefault();
             onEdit(watchlist);
@@ -103,7 +103,7 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
           <FiEdit3 />
         </button>
         <button
-          className="bg-black/50 border border-glass-border text-text-primary rounded-full w-9 h-9 flex justify-center items-center cursor-pointer backdrop-blur-sm transition-all z-10 p-0 text-base hover:text-white hover:bg-[#ef4444]"
+          className="bg-black/50 border border-glass-border text-text-primary rounded-full w-9 h-9 flex justify-center items-center cursor-pointer backdrop-blur-sm transition-all z-10 p-0 text-base hover:text-white hover:bg-[#ef4444] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           onClick={(e) => {
             e.preventDefault();
             onDelete(watchlist._id);
@@ -116,15 +116,17 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
       {/* touch actions for mobile */}
       <div className="absolute top-3 right-3 [@media(hover:hover)]:hidden" ref={menuRef}>
         <button
-          className="bg-black/50 border border-glass-border text-text-primary rounded-full w-9 h-9 flex justify-center items-center cursor-pointer backdrop-blur-sm transition-all z-10 p-0 text-base hover:bg-netflix-red hover:text-white"
+          className="bg-black/50 border border-glass-border text-text-primary rounded-full w-9 h-9 flex justify-center items-center cursor-pointer backdrop-blur-sm transition-all z-10 p-0 text-base hover:bg-netflix-red hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           onClick={handleMenuToggle}
-          aria-label="More options">
+          aria-label="More options"
+          aria-expanded={isMenuOpen}>
           <FiMoreVertical />
         </button>
         {isMenuOpen && (
           <div className="absolute top-12 right-0 bg-[#2a2a2a] rounded-lg border border-glass-border shadow-[0_4px_12px_rgba(0,0,0,0.5)] p-2 z-20 flex flex-col gap-1 w-[120px]">
             <button
-              className="bg-transparent border-none text-text-primary p-3 rounded-md text-left text-sm cursor-pointer flex items-center gap-3 transition-colors hover:bg-white/10 hover:text-white"
+              className="bg-transparent border-none text-text-primary p-3 rounded-md text-left text-sm cursor-pointer flex items-center gap-3 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+              aria-label={`Edit ${watchlist.name}`}
               onClick={(e) => {
                 e.preventDefault();
                 onEdit(watchlist);
@@ -133,7 +135,8 @@ const WatchlistCard = ({ watchlist, index, onDelete, onEdit }) => {
               <FiEdit3 /> Edit
             </button>
             <button
-              className="bg-transparent border-none text-text-primary p-3 rounded-md text-left text-sm cursor-pointer flex items-center gap-3 transition-colors hover:bg-[#ef4444] hover:text-white"
+              className="bg-transparent border-none text-text-primary p-3 rounded-md text-left text-sm cursor-pointer flex items-center gap-3 transition-colors hover:bg-[#ef4444] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+              aria-label={`Delete ${watchlist.name}`}
               onClick={(e) => {
                 e.preventDefault();
                 onDelete(watchlist._id);

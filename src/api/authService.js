@@ -1,11 +1,12 @@
-import apiClient from "./apiClient";
+import apiClient from "./apiClient.js";
+import { normalizeApiError } from "./apiErrors.js";
 
 export const registerUser = async (userData) => {
   try {
     const response = await apiClient.post("/auth/register", userData);
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };
 
@@ -17,6 +18,6 @@ export const loginUser = async (credentials) => {
     }
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw normalizeApiError(error);
   }
 };

@@ -1,7 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
 import { loginUser as apiLogin, registerUser as apiRegister } from "../api/authService";
 import { jwtDecode } from "jwt-decode";
+import { getTokenExpirationTime } from "../auth/tokenExpiry";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -9,27 +11,38 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
 
-  // check token on mount/change
+  // Restore the session and clear it when the server-issued token expires.
   useEffect(() => {
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        if (decoded.exp * 1000 < Date.now()) {
-          // clear expired token
-          localStorage.removeItem("token");
-          setToken(null);
-          setUser(null);
-        } else {
-          setUser(decoded.user);
-        }
-      } catch (error) {
-        console.error("Invalid token:", error);
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return undefined;
+    }
+
+    let expiryTimer;
+    try {
+      const decoded = jwtDecode(token);
+      const expiresAt = getTokenExpirationTime(token);
+      if (!decoded.user || expiresAt === null || expiresAt <= Date.now()) {
+        throw new Error("Token is expired or missing required claims");
+      }
+
+      setUser(decoded.user);
+      expiryTimer = window.setTimeout(() => {
         localStorage.removeItem("token");
         setToken(null);
         setUser(null);
-      }
+      }, expiresAt - Date.now());
+    } catch (error) {
+      console.error("Invalid token:", error);
+      localStorage.removeItem("token");
+      setToken(null);
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
+
+    return () => window.clearTimeout(expiryTimer);
   }, [token]);
 
   const login = async (credentials) => {
@@ -47,8 +60,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    // force reload to clear state and redirect
-    window.location.href = '/';
+    setToken(null);
+    setUser(null);
   };
 
   const value = {

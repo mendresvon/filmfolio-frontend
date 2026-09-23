@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -9,7 +10,15 @@ import {
 } from "../api/watchlistService";
 import Loader from "../components/common/Loader";
 import Card from "../components/common/Card";
-import { FiArrowLeft, FiSearch, FiPlusCircle, FiMinusCircle } from "react-icons/fi";
+import {
+  FiAlertCircle,
+  FiArrowLeft,
+  FiCheckCircle,
+  FiLoader,
+  FiMinusCircle,
+  FiPlusCircle,
+  FiSearch,
+} from "react-icons/fi";
 import { useDebounce } from "../hooks/useDebounce";
 import Input from "../components/common/Input";
 
@@ -22,15 +31,24 @@ const WatchlistDetailPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [addingMovieId, setAddingMovieId] = useState(null);
+  const [feedback, setFeedback] = useState(null);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+  useEffect(() => {
+    if (!feedback) return undefined;
+
+    const timeoutId = window.setTimeout(() => setFeedback(null), 3000);
+    return () => window.clearTimeout(timeoutId);
+  }, [feedback]);
 
   useEffect(() => {
     const fetchWatchlist = async () => {
       try {
         const data = await getWatchlistById(id);
         setWatchlist(data);
-      } catch (err) {
+      } catch {
         setError("Watchlist not found or you do not have permission to view it.");
       } finally {
         setLoading(false);
@@ -53,6 +71,12 @@ const WatchlistDetailPage = () => {
   }, [debouncedSearchQuery]);
 
   const handleAddMovie = async (movie) => {
+    const isAlreadyAdded = watchlist.movies.some(
+      (watchlistMovie) => String(watchlistMovie.movieId) === String(movie.id)
+    );
+    if (isAlreadyAdded || addingMovieId !== null) return;
+
+    setAddingMovieId(String(movie.id));
     try {
       const movieData = {
         movieId: movie.id,
@@ -64,20 +88,36 @@ const WatchlistDetailPage = () => {
         ...prev,
         movies: updatedMoviesList,
       }));
+      setFeedback({
+        type: "success",
+        message: `Added “${movie.title}” to your list.`,
+      });
     } catch (err) {
-      alert(err.msg || "Failed to add movie.");
+      setFeedback({
+        type: "error",
+        message: err?.msg || err?.message || "Failed to add movie. Please try again.",
+      });
+    } finally {
+      setAddingMovieId(null);
     }
   };
 
-  const handleRemoveMovie = async (movieIdToRemove) => {
+  const handleRemoveMovie = async (movieToRemove) => {
     try {
-      await removeMovieFromWatchlist(id, movieIdToRemove);
+      await removeMovieFromWatchlist(id, movieToRemove.movieId);
       setWatchlist((prev) => ({
         ...prev,
-        movies: prev.movies.filter((movie) => movie.movieId !== movieIdToRemove),
+        movies: prev.movies.filter((movie) => movie.movieId !== movieToRemove.movieId),
       }));
-    } catch (err) {
-      alert("Failed to remove movie.");
+      setFeedback({
+        type: "success",
+        message: `Removed “${movieToRemove.movieTitle}” from your list.`,
+      });
+    } catch {
+      setFeedback({
+        type: "error",
+        message: "Failed to remove movie. Please try again.",
+      });
     }
   };
 
@@ -122,25 +162,39 @@ const WatchlistDetailPage = () => {
           <>
             <h2 className="text-2xl max-md:text-xl font-medium text-text-headings mb-8 pb-4 border-b border-glass-border">Search Results</h2>
             <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] max-md:grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-6 max-md:gap-4 mb-12 pb-8 border-b border-glass-border">
-              {searchResults.map((movie) => (
-                <div key={movie.id} className="relative rounded-lg overflow-hidden transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group">
-                  <img
-                    src={
-                      movie.posterPath
-                        ? `https://image.tmdb.org/t/p/w500${movie.posterPath}`
-                        : "https://via.placeholder.com/500x750?text=No+Image"
-                    }
-                    alt={movie.title}
-                    className="w-full h-auto block"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 py-4 px-2 bg-gradient-to-t from-black/95 via-black/50 to-transparent flex justify-between items-end opacity-0 transition-opacity group-hover:opacity-100">
-                    <h3 className="text-white text-sm font-medium m-0 leading-tight">{movie.title}</h3>
-                    <button className="bg-transparent border-none text-white/80 text-3xl cursor-pointer transition-all p-0 leading-none shrink-0 ml-2 hover:text-[#4ade80] hover:scale-110" onClick={() => handleAddMovie(movie)}>
-                      <FiPlusCircle />
-                    </button>
+              {searchResults.map((movie) => {
+                const isAdded = watchlist.movies.some(
+                  (watchlistMovie) => String(watchlistMovie.movieId) === String(movie.id)
+                );
+                const isAdding = addingMovieId === String(movie.id);
+
+                return (
+                  <div key={movie.id} className="relative rounded-lg overflow-hidden transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group">
+                    <img
+                      src={
+                        movie.posterPath
+                          ? `https://image.tmdb.org/t/p/w500${movie.posterPath}`
+                          : "https://via.placeholder.com/500x750?text=No+Image"
+                      }
+                      alt={movie.title}
+                      className="w-full h-auto block"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 py-4 px-2 bg-gradient-to-t from-black/95 via-black/50 to-transparent flex justify-between items-end opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100 [@media(any-pointer:coarse)]:opacity-100">
+                      <h3 className="text-white text-sm font-medium m-0 leading-tight">{movie.title}</h3>
+                      <button
+                        type="button"
+                        aria-label={isAdded ? `${movie.title} is already in this list` : `Add ${movie.title} to this list`}
+                        aria-busy={isAdding}
+                        disabled={isAdded || isAdding || addingMovieId !== null}
+                        className={`min-h-11 min-w-11 inline-flex items-center justify-center rounded-full border border-white/40 bg-black/40 text-2xl cursor-pointer transition-all shrink-0 ml-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-default ${isAdded ? "text-[#4ade80]" : "text-white/80 hover:text-[#4ade80] hover:scale-110"}`}
+                        onClick={() => handleAddMovie(movie)}
+                      >
+                        {isAdding ? <FiLoader className="animate-spin" aria-hidden="true" /> : isAdded ? <FiCheckCircle aria-hidden="true" /> : <FiPlusCircle aria-hidden="true" />}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </>
         )}
@@ -164,12 +218,15 @@ const WatchlistDetailPage = () => {
                   alt={movie.movieTitle}
                   className="w-full h-auto block"
                 />
-                <div className="absolute bottom-0 left-0 right-0 py-4 px-2 bg-gradient-to-t from-black/95 via-black/50 to-transparent flex justify-between items-end opacity-0 transition-opacity group-hover:opacity-100">
+                <div className="absolute bottom-0 left-0 right-0 py-4 px-2 bg-gradient-to-t from-black/95 via-black/50 to-transparent flex justify-between items-end opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100 [@media(any-pointer:coarse)]:opacity-100">
                   <h3 className="text-white text-sm font-medium m-0 leading-tight">{movie.movieTitle}</h3>
                   <button
-                    className="bg-transparent border-none text-white/80 text-3xl cursor-pointer transition-all p-0 leading-none shrink-0 ml-2 hover:text-[#f87171] hover:scale-110"
-                    onClick={() => handleRemoveMovie(movie.movieId)}>
-                    <FiMinusCircle />
+                    type="button"
+                    aria-label={`Remove ${movie.movieTitle} from this list`}
+                    className="min-h-11 min-w-11 inline-flex items-center justify-center rounded-full border border-white/40 bg-black/40 text-2xl text-white/80 cursor-pointer transition-all shrink-0 ml-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white hover:text-[#f87171] hover:scale-110"
+                    onClick={() => handleRemoveMovie(movie)}
+                  >
+                    <FiMinusCircle aria-hidden="true" />
                   </button>
                 </div>
               </motion.div>
@@ -181,6 +238,25 @@ const WatchlistDetailPage = () => {
           )}
         </div>
       </Card>
+
+      {feedback && (
+        createPortal(
+          <div
+            className={`fixed left-1/2 z-[1100] flex w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-3 rounded-xl border bg-black/90 px-4 py-3 text-sm shadow-xl backdrop-blur-md ${feedback.type === "success" ? "border-[#4ade80]/50 text-white" : "border-[#f87171]/50 text-white"}`}
+            style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
+            role={feedback.type === "success" ? "status" : "alert"}
+            aria-atomic="true"
+          >
+            {feedback.type === "success" ? (
+              <FiCheckCircle className="shrink-0 text-[#4ade80]" aria-hidden="true" />
+            ) : (
+              <FiAlertCircle className="shrink-0 text-[#f87171]" aria-hidden="true" />
+            )}
+            <span className="break-words">{feedback.message}</span>
+          </div>,
+          document.body
+        )
+      )}
     </div>
   );
 };
